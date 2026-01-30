@@ -1,0 +1,7 @@
+# Olivier Larue: SOURCE: https://github.com/phprouter/main/blob/main/.htaccess
+# Olivier Larue: Modified and adjusted for my needs
+RewriteEngine On
+RewriteBase /IFT3225-tp1/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI}  !(\.png|\.jpg|\.webp|\.gif|\.jpeg|\.zip|\.css|\.svg|\.js|\.pdf)$
+RewriteRule ^(.*)$ routes.php [QSA,L]

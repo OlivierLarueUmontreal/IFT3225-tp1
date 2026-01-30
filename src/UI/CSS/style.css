@@ -1,0 +1,36 @@
+/* --- NAV --- */
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+nav a:hover {
+    opacity: 0.8;
+}
+
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+
+}

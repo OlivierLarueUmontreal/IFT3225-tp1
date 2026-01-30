@@ -1,36 +1,38 @@
 <?php
 
-class user {
-    private $id;
+class Account implements BaseEntity { 
     private $username;
     private $email;
     private $passwordHash;
-    public function __construct($id, $username, $email, $passwordHash) {
+    private $authenticated;
+    
+    public function __construct($id, $username, $email, $passwordHash, $authenticated = false) {
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
         $this->passwordHash = $passwordHash;
+        $this->authenticated = $authenticated;
+    
     }
 
     function __destruct() {
-    echo "Name: " . $this->name . ". Color: " . $this->color .".<br>";
+    echo "username: " . $this->username . ". Email: " . $this->email .".<br>";
   }
 
-    // Getters 
-    public function getId() {
-        return $this->id;
-    }
-
-    public function getUsername() {
+    public function getUsername(): ?string {
         return $this->username;
     }
 
-    public function getEmail() {
+    public function getEmail(): ?string {
         return $this->email;
     }
 
-    public function getPasswordHash() {
+    public function getPasswordHash() :?string {
         return $this->passwordHash;
+    }
+
+    public function getAuthenticated() :?bool {
+        return $this->authenticated;
     }
 
     // Setters 
