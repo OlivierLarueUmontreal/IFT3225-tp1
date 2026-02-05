@@ -1,5 +1,7 @@
-<?php 
+<?php
 
-class AccountSessionRepository {
+namespace src\Infrastructure\Repository;
+
+class AccountSessionRepository  {
 
 }

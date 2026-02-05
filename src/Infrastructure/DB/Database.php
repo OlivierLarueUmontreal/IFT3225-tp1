@@ -1,5 +1,9 @@
 <?php
 
+namespace src\Infrastructure\DB;
+
+use PDO;
+use PDOException;
 
 class Database
 {
@@ -9,9 +13,9 @@ class Database
     {
         if ($this->pdo !== null) return $this->pdo;
 
-        $config = require __DIR__ . "/config/config.php"; // TODO figure out way to tell if we are in prod or in local otherwise, change the file name before deploying to prod
+        $config = require ROOT_PATH ."/config/config.php"; // TODO figure out way to tell if we are in prod or in local otherwise, change the file name before deploying to prod
         $env = $config['app']['env'];
-        $dbConfig = require __DIR__ . "/config/dbConfig_$env.php";
+        $dbConfig = require ROOT_PATH . "/config/dbconfig_$env.php";
 
         try {
             $dsn = "mysql:host=$dbConfig[host];dbname=$dbConfig[db];";
@@ -20,7 +24,7 @@ class Database
             return $this->pdo;
         } catch (PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
-            throw new PDOException("Database connection failed: " . $e->getMessage());
+            throw new PDOException("DB connection failed: " . $e->getMessage());
         }
     }
 }

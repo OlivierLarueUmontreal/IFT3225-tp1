@@ -23,13 +23,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?php echo PROJECT_ROOT ?>/register">Inscription <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="<?= makeUrl('register') ?>">Inscription <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PROJECT_ROOT ?>/login">Connexion</a>
+                    <a class="nav-link" href="<?= makeUrl('login') ?>">Connexion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PROJECT_ROOT ?>/exercice/5">Exercice 5</a>
+                    <a class="nav-link" href="<?= makeUrl('exercice/5') ?>">Exercice 5</a>
                 </li>
             </ul>
         </div>

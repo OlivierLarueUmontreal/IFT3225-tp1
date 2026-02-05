@@ -1,5 +1,9 @@
 <?php
 
+namespace src\Application\Repositories;
+
+use src\Domain\Entities\Account;
+
 interface IAccountRepository {
     public function getById($id): ?Account;
     public function getAll(): array;

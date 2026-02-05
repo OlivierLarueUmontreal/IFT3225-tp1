@@ -1,4 +1,7 @@
 <?php
+
+$config = require ROOT_PATH . "/config/config.php";
+
 // Olivier Larue SOURCE: https://github.com/phprouter/main/blob/main/router.php from : https://phprouter.com/
 function get($route, $path_to_include)
 {
@@ -40,6 +43,8 @@ function any($route, $path_to_include)
     route($route, $path_to_include);
 }
 
+
+
 function route($route, $path_to_include)
 {
     $callback = $path_to_include;
@@ -55,7 +60,7 @@ function route($route, $path_to_include)
     $request_url = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
     $request_url = rtrim($request_url, '/');
     $request_url = strtok($request_url, '?');
-    $request_url = str_replace('/IFT3225-tp1', '', $request_url);
+    $request_url = str_replace(BASE_URL, '', $request_url);
     if ($request_url == '' || $request_url == '/')
         $request_url = '/';
 

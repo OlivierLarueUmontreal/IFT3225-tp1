@@ -1,5 +1,11 @@
 <?php
 
+namespace src\Infrastructure\Repositories;
+
+use PDO;
+use src\Application\Repositories\IAccountRepository;
+use src\Domain\Entities\Account;
+
 class AccountRepository implements IAccountRepository
 {
     private PDO $pdo;

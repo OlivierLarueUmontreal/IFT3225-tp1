@@ -1,4 +1,6 @@
 <?php
+namespace src\Domain\Entities;
+use src\Domain\Entities\Base\BaseEntity;
 
 class Account extends BaseEntity
 {

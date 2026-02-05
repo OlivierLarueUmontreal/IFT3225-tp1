@@ -1,4 +1,5 @@
 <?php
+namespace src\Domain\Entities;
 
 class AccountSession
 {

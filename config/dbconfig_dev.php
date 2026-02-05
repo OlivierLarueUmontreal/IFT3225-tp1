@@ -2,7 +2,7 @@
 
 return [
     'host' => 'localhost',
-    'db' => 'tp1_db',
+    'db' => 'tp1',
     'username' => 'admin',
     'pwd' => 'admin'
 ];

@@ -1,6 +1,8 @@
 <?php
+namespace src\Domain\Models;
 
-enum BodyPart: string {
+enum BodyPart: string
+{
     case Chest = 'chest';
     case Back = 'back';
     case Quadriceps = 'quadriceps';
@@ -11,4 +13,4 @@ enum BodyPart: string {
     case Biceps = 'biceps';
     case Triceps = 'triceps';
     case Abdominals = 'abdominals';
-    }
+}
