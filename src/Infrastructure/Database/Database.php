@@ -1,10 +1,11 @@
 <?php
 
+
 class Database
 {
     private ?PDO $pdo = null;
 
-    public function GetPdo(): PDO
+    public function getPdo(): PDO
     {
         if ($this->pdo !== null) return $this->pdo;
 

@@ -1,6 +1,11 @@
-<?php 
+<?php
 
-Interface BaseEntity {
-    public int $id { get; }
+abstract class BaseEntity
+{
+    public ?int $id {
+        get {
+            return $this->id;
+        }
+    }
 
 }

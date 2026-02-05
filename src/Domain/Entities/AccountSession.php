@@ -1,8 +1,7 @@
-<?php 
+<?php
 
-class AccountSession {
-
+class AccountSession
+{
     private int $accountId;
     private $loginTime;
-
 }
