@@ -1,15 +1,19 @@
 <?php
+
 namespace src\Domain\Entities;
+
+use DateTime;
 use src\Domain\Entities\Base\BaseEntity;
 
 class Account extends BaseEntity
 {
     private ?string $username;
-    private ?string $email; // TODO needed ?
+    private ?string $email;
     private ?string $passwordHash;
     private bool $authenticated;
+    private ?string $createdAt;
 
-    public function __construct($id, $username, $email, $passwordHash, $authenticated = false)
+    public function __construct($id, $username, $email, $passwordHash, $authenticated = false, $createdAt = null)
     {
         parent::__construct($id);
 
@@ -17,6 +21,7 @@ class Account extends BaseEntity
         $this->email = $email;
         $this->passwordHash = $passwordHash;
         $this->authenticated = $authenticated;
+        $this->createdAt = $createdAt;
     }
 
     function __destruct()
@@ -42,6 +47,11 @@ class Account extends BaseEntity
     public function getAuthenticated(): ?bool
     {
         return $this->authenticated;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
     }
 
     // Setters

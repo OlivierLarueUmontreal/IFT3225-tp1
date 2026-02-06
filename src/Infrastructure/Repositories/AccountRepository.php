@@ -2,6 +2,7 @@
 
 namespace src\Infrastructure\Repositories;
 
+use DateTime;
 use Exception;
 use PDO;
 use PDOException;
@@ -66,7 +67,7 @@ class AccountRepository implements IAccountRepository
 
     public function save(Account $account): Account
     {
-        if($account->getId() === null)
+        if ($account->getId() === null)
             return $this->create($account);
 
         return $this->update($account);
@@ -74,9 +75,15 @@ class AccountRepository implements IAccountRepository
 
     private function create(Account $account): Account
     {
-        $query = "INSERT INTO accounts (username, password) VALUES (:username, :password);";
-        $pwdHash = password_hash($account->getPassword(), PASSWORD_DEFAULT);
-        $values = ['username' => $account->getUsername(), 'password' => $pwdHash];
+        echo "from AccountRepository: " . $account->getUsername() . " " . $account->getEmail() . $account->getPassword() . "\n";
+
+        $query = "INSERT INTO accounts (username, email, password) VALUES (:username, :email, :password);";
+        echo "from AccountService: " . $account->getUsername() . " " . $account->getEmail() . $account->getPassword() . "\n";
+        $values = [
+            'username' => $account->getUsername(),
+            'email' => $account->getEmail(),
+            'password' => $account->getPassword()
+        ];
 
         try {
             $statement = $this->pdo->prepare($query);
@@ -95,7 +102,7 @@ class AccountRepository implements IAccountRepository
         $values = ['id' => $account->getId(), 'name' => $account->getUsername(), 'email' => $account->getEmail()];
 
         try {
-            $statement = $this->connection->prepare($query);
+            $statement = $this->pdo->prepare($query);
             $statement->execute($values);
         } catch (PDOException $e) {
             throw new Exception("Could not update user: , db error: " . $e->getMessage());
@@ -106,13 +113,15 @@ class AccountRepository implements IAccountRepository
 
     private function map(array $data): Account
     {
-        // TODO do BD design to make sure the fields make sens
+
+
         return new Account(
             $data['id'],
             $data['username'],
             $data['email'],
             $data['password'],
-            $data['authenticated']
+            $data['enabled'],
+            $data['register_time']
         );
     }
 }

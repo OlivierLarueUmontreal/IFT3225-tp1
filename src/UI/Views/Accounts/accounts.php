@@ -25,11 +25,11 @@ include_once VIEWS_PATH . '/Components/Header.php';
         <?php foreach ($accounts as $account): ?>
             <tr>
                 <td><?= htmlspecialchars((string)$account->getId()) ?></td>
-                <td><?= htmlspecialchars($account->getName()) ?></td>
+                <td><?= htmlspecialchars($account->getUsername()) ?></td>
                 <td><?= htmlspecialchars($account->getEmail()) ?></td>
                 <td><?= htmlspecialchars($account->getCreatedAt()) ?></td>
                 <td>
-                    <a href="<?= makeUrl("account/{$account->getId()}") ?>"
+                    <a href="<?= makeUrl("account/{$account->getId()}") ?>">detail</a>
                 </td>
             </tr>
         <?php endforeach; ?>
