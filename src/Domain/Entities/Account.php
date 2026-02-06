@@ -11,7 +11,8 @@ class Account extends BaseEntity
 
     public function __construct($id, $username, $email, $passwordHash, $authenticated = false)
     {
-        $this->id = $id;
+        parent::__construct($id);
+
         $this->username = $username;
         $this->email = $email;
         $this->passwordHash = $passwordHash;
@@ -33,7 +34,7 @@ class Account extends BaseEntity
         return $this->email;
     }
 
-    public function getPasswordHash(): ?string
+    public function getPassword(): ?string
     {
         return $this->passwordHash;
     }

@@ -13,6 +13,19 @@ get('/login', VIEWS_PATH . '/Connexions/Login.php');
 get('/exercice/$id', VIEWS_PATH . '/Exercices/Exercice.php');
 get('/exercices', VIEWS_PATH . '/Exercices/Exercices.php');
 
+
+//TEST purposes only to test callback on router, maybe remove or admin only
+get('/accounts' , function() {
+    global $accountController;
+    $accountController->showAll();
+});
+
+//Test de creation de compte sur post de /accounts
+post('/accounts', function() {
+    global $accountController;
+    $accountController->register();
+});
+
 // For GET or POST
 // The 404.php which is inside the views folder will be called
 // The 404.php has access to $_GET and $_POST

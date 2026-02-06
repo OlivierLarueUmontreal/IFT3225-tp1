@@ -1,0 +1,49 @@
+<?php
+
+namespace src\Application\Services;
+
+use src\Application\Repositories\IAccountRepository;
+use src\Domain\Entities\Account;
+
+class AccountService
+{
+    private IAccountRepository $accountRepository;
+
+    function __construct(IAccountRepository $accountRepository)
+    {
+        $this->accountRepository = $accountRepository;
+    }
+
+    public function createAccount(string $name, string $email, string $password): Account
+    {
+        $pwd = password_hash($password, PASSWORD_DEFAULT);
+        $account = new Account(null, $name, $email, $pwd);
+        return $this->accountRepository->save($account);
+    }
+
+    public function updateAccount(int $id, string $username, string $email): ?Account
+    {
+        $account = $this->accountRepository->retrieveById($id);
+        if (!$account) return null;
+
+        $account->setUsername($username);
+        $account->setEmail($email);
+
+        return $this->accountRepository->save($account);
+    }
+
+    public function getAccountById(int $id): Account
+    {
+        return $this->accountRepository->retrieveById($id);
+    }
+
+    public function getAllAccounts(): array
+    {
+        return $this->accountRepository->retrieveAll();
+    }
+
+    public function deleteAccount(int $id): bool
+    {
+        return $this->accountRepository->delete($id);
+    }
+}

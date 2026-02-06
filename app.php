@@ -17,12 +17,23 @@ spl_autoload_register(function ($class) {
     return false;
 });
 
+// usings
+use src\UI\Controllers\AccountController;
+use src\Application\Services\AccountService;
 use src\Infrastructure\DB\Database;
 use src\Infrastructure\Repositories\AccountRepository;
 
 $database = new DataBase();
 $connection = $database->getPdo();
-$AccountRepository = new AccountRepository($connection);
+
+// repositories
+$accountRepository = new AccountRepository($connection);
+
+// Services
+$accountService = new AccountService($accountRepository);
+
+//Controllers
+$accountController = new AccountController($accountService);
 
 //Router
 include_once './routes.php';

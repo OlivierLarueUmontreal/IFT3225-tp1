@@ -2,7 +2,9 @@
 
 namespace src\Infrastructure\Repositories;
 
+use Exception;
 use PDO;
+use PDOException;
 use src\Application\Repositories\IAccountRepository;
 use src\Domain\Entities\Account;
 
@@ -15,7 +17,7 @@ class AccountRepository implements IAccountRepository
         $this->pdo = $pdo;
     }
 
-    public function getById($id): ?Account
+    public function retrieveById($id): ?Account
     {
         $query = "SELECT * FROM accounts WHERE id = :id";
         $values = ['id' => $id];
@@ -31,7 +33,7 @@ class AccountRepository implements IAccountRepository
         return $this->map($result);
     }
 
-    public function getAll(): array
+    public function retrieveAll(): array
     {
         $query = "SELECT * FROM accounts";
         try {
@@ -53,7 +55,7 @@ class AccountRepository implements IAccountRepository
     public function delete(Account $account): bool
     {
         $query = "DELETE FROM accounts WHERE id = :id";
-        $values = ['id' => $account->id];
+        $values = ['id' => $account->getId()];
         try {
             $statement = $this->pdo->prepare("DELETE FROM accounts WHERE id = :id");
             return $statement->execute();
@@ -62,11 +64,19 @@ class AccountRepository implements IAccountRepository
         }
     }
 
-    public function create(string $username, string $password): int
+    public function save(Account $account): Account
+    {
+        if($account->getId() === null)
+            return $this->create($account);
+
+        return $this->update($account);
+    }
+
+    private function create(Account $account): Account
     {
         $query = "INSERT INTO accounts (username, password) VALUES (:username, :password);";
-        $pwdHash = password_hash($password, PASSWORD_DEFAULT);
-        $values = ['username' => $username, 'password' => $pwdHash];
+        $pwdHash = password_hash($account->getPassword(), PASSWORD_DEFAULT);
+        $values = ['username' => $account->getUsername(), 'password' => $pwdHash];
 
         try {
             $statement = $this->pdo->prepare($query);
@@ -75,13 +85,14 @@ class AccountRepository implements IAccountRepository
             throw new Exception("Could not create user {$username}, db error: {$e->getMessage()}");
         }
 
-        return $this->pdo->lastInsertId();
+        $lastId = $this->pdo->lastInsertId();
+        return $this->retrieveById($lastId);
     }
 
-    public function update(Account $account): Account
+    private function update(Account $account): Account
     {
         $query = "UPDATE accounts SET username = :username, password = :password WHERE id = :id";
-        $values = ['id' => $account->id, 'name' => $account->getUsername(), 'email' => $account->getEmail()];
+        $values = ['id' => $account->getId(), 'name' => $account->getUsername(), 'email' => $account->getEmail()];
 
         try {
             $statement = $this->connection->prepare($query);

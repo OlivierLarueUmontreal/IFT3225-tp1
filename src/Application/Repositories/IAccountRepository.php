@@ -5,9 +5,8 @@ namespace src\Application\Repositories;
 use src\Domain\Entities\Account;
 
 interface IAccountRepository {
-    public function getById($id): ?Account;
-    public function getAll(): array;
+    public function retrieveById($id): ?Account;
+    public function retrieveAll(): array;
     public function delete(Account $account): bool;
-    public function update(Account $account): Account;
-    public function create(string $username, string $password): int;
+    public function save(Account $account): Account;
 }

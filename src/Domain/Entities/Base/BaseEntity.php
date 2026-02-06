@@ -1,11 +1,17 @@
 <?php
+
 namespace src\Domain\Entities\Base;
 abstract class BaseEntity
 {
-    public ?int $id {
-        get {
-            return $this->id;
-        }
+    private ?int $id;
+
+    function __construct($id)
+    {
+        $this->id = $id;
+    }
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
 }
