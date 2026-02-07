@@ -34,6 +34,38 @@ class AccountRepository implements IAccountRepository
         return $this->map($result);
     }
 
+    public function retrieveByEmail($email): ?Account
+    {
+        $query = "SELECT * FROM accounts WHERE email = :email";
+        $values = ['email' => $email];
+        try {
+            $statement = $this->pdo->prepare($query);
+            $statement->execute($values);
+        } catch (PDOException $e) {
+            throw new Exception("Could not retrive account with email: {$email}, db Error: {$e->getMessage()}");
+        }
+        $result = $statement->fetch();
+        if (!$result) return null;
+
+        return $this->map($result);
+    }
+
+    public function retrieveByUsername($username): ?Account
+    {
+        $query = "SELECT * FROM accounts WHERE username = :username";
+        $values = ['username' => $username];
+        try {
+            $statement = $this->pdo->prepare($query);
+            $statement->execute($values);
+        } catch (PDOException $e) {
+            throw new Exception("Could not retrive account with username: {$username}, db Error: {$e->getMessage()}");
+        }
+        $result = $statement->fetch();
+        if (!$result) return null;
+
+        return $this->map($result);
+    }
+
     public function retrieveAll(): array
     {
         $query = "SELECT * FROM accounts";
@@ -65,7 +97,7 @@ class AccountRepository implements IAccountRepository
         }
     }
 
-    public function save(Account $account): Account
+    public function save(Account $account): ?Account
     {
         if ($account->getId() === null)
             return $this->create($account);
@@ -73,9 +105,14 @@ class AccountRepository implements IAccountRepository
         return $this->update($account);
     }
 
-    private function create(Account $account): Account
+    private function create(Account $account): ?Account
     {
         echo "from AccountRepository: " . $account->getUsername() . " " . $account->getEmail() . $account->getPassword() . "\n";
+
+        if(!(($this->retrieveByUsername($account->getUserName()) === null) && ($this->retrieveByEmail($account->getEmail()) === null))){
+            echo "Account creation unsucessful. Username/email already exists\n";
+            return null;
+        }
 
         $query = "INSERT INTO accounts (username, email, password) VALUES (:username, :email, :password);";
         echo "from AccountService: " . $account->getUsername() . " " . $account->getEmail() . $account->getPassword() . "\n";

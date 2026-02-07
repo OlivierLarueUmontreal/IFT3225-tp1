@@ -14,7 +14,7 @@ class AccountService
         $this->accountRepository = $accountRepository;
     }
 
-    public function createAccount(string $name, string $email, string $password): Account
+    public function createAccount(string $name, string $email, string $password): ?Account
     {
         echo "from AccountService: " . $name . " " . $email . $password . "\n";
         $pwd = password_hash($password, PASSWORD_DEFAULT);

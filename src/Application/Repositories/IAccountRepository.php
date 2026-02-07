@@ -8,5 +8,5 @@ interface IAccountRepository {
     public function retrieveById($id): ?Account;
     public function retrieveAll(): array;
     public function delete(Account $account): bool;
-    public function save(Account $account): Account;
+    public function save(Account $account): ?Account;
 }
