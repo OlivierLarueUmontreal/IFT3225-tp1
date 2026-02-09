@@ -5,6 +5,8 @@ require_once __DIR__ . '/router.php';
 //home
 get('/', VIEWS_PATH . '/Home.php');
 
+get('/app.js', VIEWS_PATH . '/app.js.php');
+
 //Register and logins
 get('/register', VIEWS_PATH . '/Connexions/Register.php');
 get('/login', VIEWS_PATH . '/Connexions/Login.php');
