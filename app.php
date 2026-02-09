@@ -17,8 +17,26 @@ spl_autoload_register(function ($class) {
     return false;
 });
 
+//start session and configure cookie setting
+$cookieLifetime = 3600; // session valid for 1 hour
+
+// $host = $_SERVER['HTTP_HOST'] ?? '';
+// Strip port if present (cookies' domain must not include port)
+// $cookieDomain = preg_replace('/:\d+$/', '', $host);
+
+ini_set('session.gc_maxlifetime', (string)$cookieLifetime);
+
+session_start([
+    'cookie_lifetime' => $cookieLifetime,
+    'cookie_path' => '/',
+    'cookie_httponly' => true,
+    'cookie_samesite' => 'Strict'
+]);
+
+
 // usings
 use src\UI\Controllers\AccountController;
+use src\UI\Controllers\AuthenticationController;
 use src\Application\Services\AccountService;
 use src\Infrastructure\DB\Database;
 use src\Infrastructure\Repositories\AccountRepository;
@@ -34,6 +52,7 @@ $accountService = new AccountService($accountRepository);
 
 //Controllers
 $accountController = new AccountController($accountService);
+$authenticationController = new AuthenticationController($accountService);
 
 //Router
 include_once './routes.php';
