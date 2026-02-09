@@ -66,6 +66,22 @@ class AccountRepository implements IAccountRepository
         return $this->map($result);
     }
 
+    public function retrieveByIdentifier($identifier): ?Account 
+    {
+        $query = "SELECT * FROM accounts WHERE username = :identifier OR email = :identifier";
+        $values = ['identifier' => $identifier];
+        try {
+            $statement = $this->pdo->prepare($query);
+            $statement->execute($values);
+        } catch (PDOException $e) {
+            throw new Exception("Could not retrive account with indentifier: {$identifier}, db Error: {$e->getMessage()}");
+        }
+        $result = $statement->fetch();
+        if (!$result) return null;
+
+        return $this->map($result);
+    }
+
     public function retrieveAll(): array
     {
         $query = "SELECT * FROM accounts";

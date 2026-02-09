@@ -28,6 +28,17 @@ post('/accounts', function() {
     $accountController->register();
 });
 
+get('/authenticate', function() {
+    global $authenticationController;
+    $authenticationController->authenticate();
+});
+
+
+post('/authenticate', function() {
+    global $authenticationController;
+    $authenticationController->authenticate();
+});
+
 // For GET or POST
 // The 404.php which is inside the views folder will be called
 // The 404.php has access to $_GET and $_POST

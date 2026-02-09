@@ -1,12 +1,33 @@
 <?php include_once VIEWS_PATH . '/Components/Header.php'; ?>
 
 <div class = "content-wrapper view-login">
-    <div class="row justify-content-center mt-5">
+<?php
+// Start session early so we can show flash messages before any output
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$flashError = null;
+if (!empty($_SESSION['flash_error'])) {
+    $flashError = $_SESSION['flash_error'];
+    unset($_SESSION['flash_error']);
+}
+
+include_once VIEWS_PATH . '/Components/Header.php'; ?>
+
+<?php if ($flashError): ?>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert"><?= htmlspecialchars($flashError) ?></div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<div class="row justify-content-center mt-5">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title mb-4">Connexion</h3>
-                    <form method="post" action="<?= makeUrl('login') ?>">
+                    <form method="post" action="<?= makeUrl('authenticate') ?>">
                         <?php if (function_exists('set_csrf')) { set_csrf(); } ?>
                         <div class="form-group">
                             <label for="identifier">Email or Username</label>
@@ -15,10 +36,6 @@
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                            <label class="form-check-label" for="remember">Remember me</label>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                         <a href="<?= makeUrl('register') ?>" class="btn btn-link">Register</a>

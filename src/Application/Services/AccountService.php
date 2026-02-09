@@ -38,6 +38,11 @@ class AccountService
         return $this->accountRepository->retrieveById($id);
     }
 
+    public function getAccountByIdentifier(string $identifier): ?Account
+    {
+        return $this->accountRepository->retrieveByIdentifier($identifier);
+    }
+
     public function getAllAccounts(): array
     {
         return $this->accountRepository->retrieveAll();
