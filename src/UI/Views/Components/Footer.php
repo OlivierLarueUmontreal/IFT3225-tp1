@@ -1,7 +1,7 @@
 </main>
 <footer>
     <div class="container justify-content-center border-bottom pb-3 mb-3">
-        <p> Done by Olivier Larue (20269986) and (PRENOM) (NOM) (MATRICULE) </p>
+        <p> Done by Olivier Larue (20269986) and Hung Nguyen Cao (20246446) </p>
 
         <p>&copy; <?= date('Y') ?> TP1 Application App. All rights reserved.</p>
     </div>
