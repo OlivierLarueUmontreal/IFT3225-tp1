@@ -1,5 +1,3 @@
-<?php include_once VIEWS_PATH . '/Components/Header.php'; ?>
-
 <div class = "content-wrapper view-login">
 <?php
 // Start session early so we can show flash messages before any output
@@ -12,7 +10,8 @@ if (!empty($_SESSION['flash_error'])) {
     unset($_SESSION['flash_error']);
 }
 
-include_once VIEWS_PATH . '/Components/Header.php'; ?>
+include_once VIEWS_PATH . '/Components/Header.php';
+?>
 
 <?php if ($flashError): ?>
     <div class="row justify-content-center mt-3">

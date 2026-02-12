@@ -8,7 +8,6 @@ use src\Domain\Entities\Account;
 class AccountService
 {
     private IAccountRepository $accountRepository;
-
     function __construct(IAccountRepository $accountRepository)
     {
         $this->accountRepository = $accountRepository;

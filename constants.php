@@ -14,7 +14,15 @@ if ($env == 'dev') {
     define('BASE_URL', '/');
 }
 
-// Helper Function to make url easily
+//TODO gerer cela dans le config bd pour le schema
+
+/**
+ * Helper Function to make url easily
+ * providing empty string brings to home page.
+ * example: makeurl('login') will bring you to basePath/login
+ * @param string $subpath the path we want to reach using urls
+ * @return string formated url with the base url
+ */
 function makeUrl(string $subpath = ''): string{
     return BASE_URL . ($subpath ? '/' . ltrim($subpath) : '');
 }

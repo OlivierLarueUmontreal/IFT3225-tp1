@@ -2,14 +2,28 @@
 // Olivier Larue: SOURCE: https://github.com/phprouter/main/blob/main/routes.php FROM: https://phprouter.com/
 // Olivier Larue: MODIFIER POUR MON UTILISATION
 require_once __DIR__ . '/router.php';
+
+get('/', function () {
+    $loggedIn = isset($_SESSION['user_id']);
+    if($loggedIn){
+        header('Location: ' . makeUrl('home'));
+    }else{
+        header('Location: ' . makeUrl('login'));
+    }
+});
+
 //home
-get('/', VIEWS_PATH . '/Home.php');
+get('/home', VIEWS_PATH . '/Home.php');
 
 get('/app.js', VIEWS_PATH . '/app.js.php');
 
 //Register and logins
 get('/register', VIEWS_PATH . '/Connexions/Register.php');
 get('/login', VIEWS_PATH . '/Connexions/Login.php');
+get('/logout', function() {
+    global $authenticationController;
+    $authenticationController->logout();
+});
 
 //Exercice
 get('/exercice/$id', VIEWS_PATH . '/Exercices/Exercice.php');
@@ -32,7 +46,6 @@ get('/authenticate', function() {
     global $authenticationController;
     $authenticationController->authenticate();
 });
-
 
 post('/authenticate', function() {
     global $authenticationController;
