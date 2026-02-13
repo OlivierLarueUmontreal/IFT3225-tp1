@@ -10,4 +10,5 @@ interface IExerciceRepository
     public function retrieveAllOfCreator($creatorId): array;
     public function retrieveById($id): ?Exercice;
     public function create(Exercice $exercice): ?Exercice;
+    public function delete(Exercice $exercice): bool;
 }

@@ -106,8 +106,8 @@ class AccountRepository implements IAccountRepository
         $query = "DELETE FROM accounts WHERE id = :id";
         $values = ['id' => $account->getId()];
         try {
-            $statement = $this->pdo->prepare("DELETE FROM accounts WHERE id = :id");
-            return $statement->execute();
+            $statement = $this->pdo->prepare($query);
+            return $statement->execute($values);
         } catch (PDOException $e) {
             throw new Exception("Could not delete account: {$e->getMessage()}");
         }
@@ -146,6 +146,15 @@ class AccountRepository implements IAccountRepository
         return $this->retrieveById($lastId);
     }
 
+
+    public function IsAdmin($id): bool
+    {
+        $account = $this->retrieveById($id);
+        if ($account === null) return false;
+
+        $account->getIsAdmin();
+    }
+
     private function update(Account $account): Account
     {
         $query = "UPDATE accounts SET username = :username, password = :password WHERE id = :id";
@@ -169,7 +178,8 @@ class AccountRepository implements IAccountRepository
             $data['email'],
             $data['password'],
             $data['enabled'],
-            $data['register_time']
+            $data['register_time'],
+            $data['is_admin']
         );
     }
 }

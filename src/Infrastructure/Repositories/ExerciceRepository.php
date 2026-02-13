@@ -5,17 +5,19 @@ namespace src\Infrastructure\Repositories;
 use Exception;
 use PDO;
 use PDOException;
+use src\Application\Repositories\IAccountRepository;
 use src\Application\Repositories\IExerciceRepository;
 use src\Domain\Entities\Exercice;
-use src\Domain\Models\BodyPart;
 
 class ExerciceRepository implements IExerciceRepository
 {
     private PDO $pdo;
+    private IAccountRepository $accountRepository;
 
-    function __construct(PDO $pdo)
+    function __construct(PDO $pdo, IAccountRepository $accountRepository)
     {
         $this->pdo = $pdo;
+        $this->accountRepository = $accountRepository;
     }
 
     public function retrieveAll(): array
@@ -93,6 +95,28 @@ class ExerciceRepository implements IExerciceRepository
 
         $lastInsertId = $this->pdo->lastInsertId();
         return $this->retrieveById($lastInsertId);
+    }
+
+
+    public function delete(Exercice $exercice): bool
+    {
+        $user_id = $_SESSION["user_id"];
+        if($user_id === null)
+            throw new Exception("You must be logged in to delete an exercice");
+
+        $isAdmin = $this->accountRepository->IsAdmin($user_id);
+        if($user_id !== $exercice->getCreatorId() && !$isAdmin)
+            throw new Exception("You must be an admin to delete an exercice that you do not own.");
+
+        //other wise, you either are deleting ur own exercices OR you are admin
+        $query = "DELETE FROM exercices WHERE id = :id";
+        $values = [":id" => $exercice->getId()];
+        try{
+            $statement = $this->pdo->prepare($query);
+            return $statement->execute($values);
+        }catch (PDOException $e){
+            throw new Exception("Could not delete exercice with id: " . $e->getMessage());
+        }
     }
 
     private function map(array $data): Exercice
