@@ -106,8 +106,8 @@ class AccountRepository implements IAccountRepository
         $query = "DELETE FROM accounts WHERE id = :id";
         $values = ['id' => $account->getId()];
         try {
-            $statement = $this->pdo->prepare("DELETE FROM accounts WHERE id = :id");
-            return $statement->execute();
+            $statement = $this->pdo->prepare($query);
+            return $statement->execute($values);
         } catch (PDOException $e) {
             throw new Exception("Could not delete account: {$e->getMessage()}");
         }
@@ -123,15 +123,12 @@ class AccountRepository implements IAccountRepository
 
     private function create(Account $account): ?Account
     {
-        echo "from AccountRepository: " . $account->getUsername() . " " . $account->getEmail() . $account->getPassword() . "\n";
-
         if(!(($this->retrieveByUsername($account->getUserName()) === null) && ($this->retrieveByEmail($account->getEmail()) === null))){
             echo "Account creation unsucessful. Username/email already exists\n";
             return null;
         }
 
         $query = "INSERT INTO accounts (username, email, password) VALUES (:username, :email, :password);";
-        echo "from AccountService: " . $account->getUsername() . " " . $account->getEmail() . $account->getPassword() . "\n";
         $values = [
             'username' => $account->getUsername(),
             'email' => $account->getEmail(),
@@ -147,6 +144,15 @@ class AccountRepository implements IAccountRepository
 
         $lastId = $this->pdo->lastInsertId();
         return $this->retrieveById($lastId);
+    }
+
+
+    public function IsAdmin($id): bool
+    {
+        $account = $this->retrieveById($id);
+        if ($account === null) return false;
+
+        $account->getIsAdmin();
     }
 
     private function update(Account $account): Account
@@ -166,15 +172,14 @@ class AccountRepository implements IAccountRepository
 
     private function map(array $data): Account
     {
-
-
         return new Account(
             $data['id'],
             $data['username'],
             $data['email'],
             $data['password'],
             $data['enabled'],
-            $data['register_time']
+            $data['register_time'],
+            $data['is_admin']
         );
     }
 }

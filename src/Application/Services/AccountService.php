@@ -8,7 +8,6 @@ use src\Domain\Entities\Account;
 class AccountService
 {
     private IAccountRepository $accountRepository;
-
     function __construct(IAccountRepository $accountRepository)
     {
         $this->accountRepository = $accountRepository;
@@ -16,7 +15,6 @@ class AccountService
 
     public function createAccount(string $name, string $email, string $password): ?Account
     {
-        echo "from AccountService: " . $name . " " . $email . $password . "\n";
         $pwd = password_hash($password, PASSWORD_DEFAULT);
         $account = new Account(null, $name, $email, $pwd);
         return $this->accountRepository->save($account);

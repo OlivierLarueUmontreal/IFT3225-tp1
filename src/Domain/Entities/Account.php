@@ -13,7 +13,9 @@ class Account extends BaseEntity
     private bool $authenticated;
     private ?string $createdAt;
 
-    public function __construct($id, $username, $email, $passwordHash, $authenticated = false, $createdAt = null)
+    private bool $isAdmin;
+
+    public function __construct($id, $username, $email, $passwordHash, $authenticated = false, $createdAt = null, bool $isAdmin = false)
     {
         parent::__construct($id);
 
@@ -22,6 +24,7 @@ class Account extends BaseEntity
         $this->passwordHash = $passwordHash;
         $this->authenticated = $authenticated;
         $this->createdAt = $createdAt;
+        $this->isAdmin = $isAdmin;
     }
 
     function __destruct()
@@ -68,5 +71,15 @@ class Account extends BaseEntity
     public function setPasswordHash($passwordHash): void
     {
         $this->passwordHash = $passwordHash;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(bool $isAdmin): void
+    {
+        $this->isAdmin = $isAdmin;
     }
 }

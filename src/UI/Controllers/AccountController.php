@@ -28,7 +28,7 @@ class AccountController
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        if(empty($username))
+        if (empty($username))
             throw new Exception("Veuillez entrer le nom d'utilisateur");
 
         if (empty($email))
@@ -39,6 +39,15 @@ class AccountController
 
         $account = $this->accountService->createAccount($username, $email, $password);
 
-        //TODO rediriger to an other page i guess
+        if (!isset($account))
+            throw new Exception("Could not create account");
+
+        // Regenerate session id to mitigate fixation
+        session_regenerate_id(true);
+        $_SESSION['user_id'] = $account->getId();
+        $_SESSION['username'] = $account->getUsername();
+        $_SESSION['email'] = $account->getEmail();
+
+        header('Location: ' . makeUrl());
     }
 }

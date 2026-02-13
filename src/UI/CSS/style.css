@@ -26,6 +26,13 @@ nav a:hover {
     opacity: 0.8;
 }
 
+.btn-square {
+    height: calc(1.5em + .75rem + 2px);
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /* --- FOOTER --- */
 footer {

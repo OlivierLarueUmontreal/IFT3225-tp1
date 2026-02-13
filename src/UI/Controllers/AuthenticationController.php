@@ -15,7 +15,8 @@ class AuthenticationController
         $this->accountService = $accountService;
     }
 
-    public function authenticate(): void{
+    public function authenticate(): void
+    {
         $identifier = $_POST['identifier'] ?? '';
         $password = $_POST['password'] ?? '';
 
@@ -34,10 +35,27 @@ class AuthenticationController
 
         // Regenerate session id to mitigate fixation
         session_regenerate_id(true);
+        $_SESSION['user_id'] = $account->getId();
         $_SESSION['username'] = $account->getUsername();
         $_SESSION['email'] = $account->getEmail();
 
-        header('Location: ' . makeUrl('exercices'));
+        header('Location: ' . makeUrl());
+        exit();
+    }
+
+    public function logout(): void
+    {
+        session_start();
+        $id = $_SESSION['user_id'];
+        if (empty($id))
+            echo 'Cant logout if you are not logged in !'; // TODO handle error better maybe
+
+        unset($_SESSION['user_id']);
+        unset($_SESSION['username']);
+        unset($_SESSION['email']);
+
+        session_destroy();
+        header('Location: ' . makeUrl('login'));
         exit();
     }
 }

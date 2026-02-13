@@ -2,18 +2,36 @@
 // Olivier Larue: SOURCE: https://github.com/phprouter/main/blob/main/routes.php FROM: https://phprouter.com/
 // Olivier Larue: MODIFIER POUR MON UTILISATION
 require_once __DIR__ . '/router.php';
+
+get('/', function () {
+    $loggedIn = isset($_SESSION['user_id']);
+    if($loggedIn){
+        header('Location: ' . makeUrl('home'));
+    }else{
+        header('Location: ' . makeUrl('login'));
+    }
+});
+
 //home
-get('/', VIEWS_PATH . '/Home.php');
+get('/home', VIEWS_PATH . '/Exercices/Exercices.php');
 
 get('/app.js', VIEWS_PATH . '/app.js.php');
 
 //Register and logins
 get('/register', VIEWS_PATH . '/Connexions/Register.php');
 get('/login', VIEWS_PATH . '/Connexions/Login.php');
+get('/logout', function() {
+    global $authenticationController;
+    $authenticationController->logout();
+});
 
 //Exercice
 get('/exercice/$id', VIEWS_PATH . '/Exercices/Exercice.php');
 get('/exercices', VIEWS_PATH . '/Exercices/Exercices.php');
+post('/exercice/add', function(){
+    global $exerciceController;
+    $exerciceController->add();
+});
 
 
 //TEST purposes only to test callback on router, maybe remove or admin only
@@ -33,11 +51,17 @@ get('/authenticate', function() {
     $authenticationController->authenticate();
 });
 
-
 post('/authenticate', function() {
     global $authenticationController;
     $authenticationController->authenticate();
 });
+
+//API
+get('/api/exercices', function() {
+    global $exerciceController;
+    $exerciceController->fetchAll();
+});
+
 
 // For GET or POST
 // The 404.php which is inside the views folder will be called
