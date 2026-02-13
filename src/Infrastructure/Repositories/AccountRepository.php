@@ -123,15 +123,12 @@ class AccountRepository implements IAccountRepository
 
     private function create(Account $account): ?Account
     {
-        echo "from AccountRepository: " . $account->getUsername() . " " . $account->getEmail() . $account->getPassword() . "\n";
-
         if(!(($this->retrieveByUsername($account->getUserName()) === null) && ($this->retrieveByEmail($account->getEmail()) === null))){
             echo "Account creation unsucessful. Username/email already exists\n";
             return null;
         }
 
         $query = "INSERT INTO accounts (username, email, password) VALUES (:username, :email, :password);";
-        echo "from AccountService: " . $account->getUsername() . " " . $account->getEmail() . $account->getPassword() . "\n";
         $values = [
             'username' => $account->getUsername(),
             'email' => $account->getEmail(),
@@ -166,8 +163,6 @@ class AccountRepository implements IAccountRepository
 
     private function map(array $data): Account
     {
-
-
         return new Account(
             $data['id'],
             $data['username'],

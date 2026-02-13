@@ -4,6 +4,7 @@ require_once __DIR__ . "/config/config.php";
 
 const ROOT_PATH = __DIR__;
 const VIEWS_PATH = __DIR__ . '/src/UI/Views';
+const CSS_PATH = __DIR__ . '/src/UI/CSS';
 
 
 $config = require ROOT_PATH . "/config/config.php";

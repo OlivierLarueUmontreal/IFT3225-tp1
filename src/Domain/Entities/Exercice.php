@@ -1,12 +1,26 @@
 <?php
-namespace src\Domain\Entities\Base;
 
-class Exercice extends BaseEntity
+namespace src\Domain\Entities;
+
+use JsonSerializable;
+use src\Domain\Entities\Base\BaseEntity;
+
+class Exercice extends BaseEntity Implements JsonSerializable
 {
     private string $title;
     private string $description;
-    private string $bodyParts;
-    private ?int $ownerId;
+    private array $bodyParts; // array of BodyParts enum
+    private ?int $creatorId;
+
+    function __construct(?int $id, string $title, string $description, array $bodyParts, $creatorId)
+    {
+        parent::__construct($id);
+
+        $this->title = $title;
+        $this->description = $description;
+        $this->bodyParts = $bodyParts;
+        $this->creatorId = $creatorId;
+    }
 
     public function getTitle(): string
     {
@@ -28,23 +42,34 @@ class Exercice extends BaseEntity
         $this->description = $description;
     }
 
-    public function getBodyParts(): string
+    public function getBodyParts(): array
     {
         return $this->bodyParts;
     }
 
-    public function setBodyParts(string $bodyParts): void
+    public function setBodyParts(array $bodyParts): void
     {
         $this->bodyParts = $bodyParts;
     }
 
-    public function getOwnerId(): ?int
+    public function getCreatorId(): ?int
     {
-        return $this->ownerId;
+        return $this->creatorId;
     }
 
-    public function setOwnerId(?int $ownerId): void
+    public function setCreatorId(?int $creatorId): void
     {
-        $this->ownerId = $ownerId;
+        $this->creatorId = $creatorId;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id'          => $this->getId(),
+            'title'       => $this->title,
+            'description' => $this->description,
+            'bodyParts'   => $this->bodyParts,
+            'creatorId'   => $this->creatorId,
+        ];
     }
 }

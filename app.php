@@ -35,24 +35,30 @@ session_start([
 
 
 // usings
+use src\Application\Services\ExerciceService;
+use src\Infrastructure\Repositories\ExerciceRepository;
 use src\UI\Controllers\AccountController;
 use src\UI\Controllers\AuthenticationController;
 use src\Application\Services\AccountService;
 use src\Infrastructure\DB\Database;
 use src\Infrastructure\Repositories\AccountRepository;
+use src\UI\Controllers\ExerciceController;
 
 $database = new DataBase();
 $connection = $database->getPdo();
 
 // repositories
 $accountRepository = new AccountRepository($connection);
+$exerciceRepository = new ExerciceRepository($connection);
 
 // Services
 $accountService = new AccountService($accountRepository);
+$exerciceService = new ExerciceService($exerciceRepository);
 
 //Controllers
 $accountController = new AccountController($accountService);
 $authenticationController = new AuthenticationController($accountService);
+$exerciceController = new ExerciceController($exerciceService);
 
 //Router
 include_once './routes.php';

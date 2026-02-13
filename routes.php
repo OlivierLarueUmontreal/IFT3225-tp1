@@ -13,7 +13,7 @@ get('/', function () {
 });
 
 //home
-get('/home', VIEWS_PATH . '/Home.php');
+get('/home', VIEWS_PATH . '/Exercices/Exercices.php');
 
 get('/app.js', VIEWS_PATH . '/app.js.php');
 
@@ -28,6 +28,10 @@ get('/logout', function() {
 //Exercice
 get('/exercice/$id', VIEWS_PATH . '/Exercices/Exercice.php');
 get('/exercices', VIEWS_PATH . '/Exercices/Exercices.php');
+post('/exercice/add', function(){
+    global $exerciceController;
+    $exerciceController->add();
+});
 
 
 //TEST purposes only to test callback on router, maybe remove or admin only
@@ -51,6 +55,13 @@ post('/authenticate', function() {
     global $authenticationController;
     $authenticationController->authenticate();
 });
+
+//API
+get('/api/exercices', function() {
+    global $exerciceController;
+    $exerciceController->fetchAll();
+});
+
 
 // For GET or POST
 // The 404.php which is inside the views folder will be called

@@ -12,5 +12,5 @@ enum BodyPart: string
     case Shoulders = 'shoulders';
     case Biceps = 'biceps';
     case Triceps = 'triceps';
-    case Abdominals = 'abdominals';
+    case Abdominal = 'abdominal';
 }

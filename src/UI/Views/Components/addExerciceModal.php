@@ -1,0 +1,136 @@
+<?php ?>
+<!-- source: https://getbootstrap.com/docs/4.0/components/modal/-->
+<div class="modal fade" id="addExerciceModal" tabindex="-1" role="dialog" aria-labelledby="addExerciceModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addExerciceModalLabel">Add an exercice</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- form-->
+                <form class="needs-validation" id="exerciceForm" method="POST" novalidate action="<?= makeUrl('exercice/add') ?>">
+                    <div class="form-group">
+                        <label for="titleInput">Title</label>
+                        <input name="title" type="text" class="form-control" id="titleInput"
+                               placeholder="Enter title" required>
+                        <div class="invalid-feedback">Please choose a title.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="descriptionTextarea">Description</label>
+                        <textarea name="description" rows="3" class="form-control" id="descriptionTextarea" placeholder="Description"
+                                  required></textarea>
+                        <div class="invalid-feedback">Please provide a description.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bodyPartsSelect">Body Parts</label>
+                        <div class="btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Chest"> Chest
+                            </label>
+
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Back"> Back
+                            </label>
+
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Quadriceps"> Quadriceps
+                            </label>
+
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Hamstrings"> Hamstrings
+                            </label>
+
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Glutes"> Glutes
+                            </label>
+
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Calves"> Calves
+                            </label>
+
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Shoulders"> Shoulders
+                            </label>
+
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Biceps"> Biceps
+                            </label>
+
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Triceps"> Triceps
+                            </label>
+
+                            <label class="btn btn-outline-primary m-1">
+                                <input type="checkbox" name="bodyParts[]" value="Abdominal"> Abdominal
+                            </label>
+                        </div>
+                        <div id="muscle-error-msg" class="invalid-feedback muscle-error text-danger"
+                             style="display: none;">Please provide at least one muscle group.
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" form="exerciceForm" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                const checkboxes = form.querySelectorAll('input[name="bodyParts[]"]');
+                const checkboxContainer = form.querySelector('.btn-group-toggle');
+                const errorMsg = form.querySelector('#muscle-error-msg');
+                const submitBtn = document.querySelector(`button[form="${form.id}"]`);
+
+                checkboxes.forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        const isChecked = Array.from(checkboxes).some(c => c.checked);
+                        if (isChecked) {
+                            errorMsg.style.display = 'none';
+                            submitBtn.disabled = false;
+                        } else if (form.classList.contains('was-validated')) {
+                            // Only show error again if they uncheck everything after trying to submit
+                            errorMsg.style.display = 'block';
+                            submitBtn.disabled = true;
+                        }
+                    });
+                });
+
+                form.addEventListener('submit', function (event) {
+                    const isChecked = Array.from(checkboxes).some(cb => cb.checked);
+                    if (!isChecked) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        form.querySelector('.invalid-feedback.muscle-error').style.display = 'block';
+                        submitBtn.disabled = true;
+                    } else {
+                        checkboxContainer.style.border = "none";
+                        form.querySelector('.invalid-feedback').style.display = 'none';
+                        submitBtn.disabled = false;
+                    }
+
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
