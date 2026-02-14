@@ -24,6 +24,7 @@ if ($env == 'dev') {
  * @param string $subpath the path we want to reach using urls
  * @return string formated url with the base url
  */
-function makeUrl(string $subpath = ''): string{
+function makeUrl(string $subpath = ''): string
+{
     return BASE_URL . ($subpath ? '/' . ltrim($subpath) : '');
 }

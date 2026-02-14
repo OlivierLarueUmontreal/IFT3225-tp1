@@ -20,17 +20,92 @@ class ExerciceController
         $description = $_POST['description'];
         $bodyParts = $_POST['bodyParts'] ?? [];
         $creatorId = $_SESSION['user_id'];
-        if(empty($title) || empty($description) || empty($bodyParts) || empty($creatorId)){
-            http_response_code(400);
+        if (empty($title) || empty($description) || empty($bodyParts) || empty($creatorId)) {
+            header('Content-type: application/json');
+            echo json_encode(["error" => true, "message" => "Given information in form is invalid."]);
+        }
+
+        try {
+            $this->exerciceService->create($title, $description, $bodyParts, $creatorId);
+        } catch (Throwable) {
+            http_response_code(500);
             exit;
         }
 
-        $result = $this->exerciceService->create($title, $description, $bodyParts, $creatorId);
-        if(!isset($result)){
-            http_response_code(500);
+        header('Location: ' . makeUrl());
+    }
+
+    public function update(): void
+    {
+        $id = $_POST['id'];
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $bodyParts = $_POST['bodyParts'] ?? [];
+        $creatorId = $_POST['creatorId'];
+
+        if (empty($id)) {
+            header('Content-type: application/json');
+            echo json_encode(["error" => true, "message" => "Exercice ID is required."]);
         }
 
-        header('Location: ' . makeUrl());
+        if (empty($title)) {
+            header('Content-type: application/json');
+            echo json_encode(["error" => true, "message" => "Exercice Title is required."]);
+        }
+
+        if (empty($description)) {
+            header('Content-type: application/json');
+            echo json_encode(["error" => true, "message" => "Exercice description is required."]);
+        }
+
+        if (empty($bodyParts)) {
+            header('Content-type: application/json');
+            echo json_encode(["error" => true, "message" => "Exercice body parts is required."]);
+        }
+
+        if (empty($creatorId)) {
+            header('Content-type: application/json');
+            echo json_encode(["error" => true, "message" => "Creator ID is required."]);
+        }
+
+        try {
+            $result = $this->exerciceService->update($id, $title, $description, $bodyParts, $creatorId);
+            header('Content-type: application/json');
+            if (!$result) {
+                echo json_encode(["error" => false, "message" => "An error occurred while updating the exercice"]);
+            } else {
+                echo json_encode(["success" => true, "message" => "Exercice successfully updated"]);
+            }
+            exit;
+        } catch (Throwable $e) {
+            header('Content-Type: application/json', true, 500);
+            echo json_encode(["error" => true, "message" => $e->getMessage()]);
+            exit;
+        }
+    }
+
+    public function delete($id): void
+    {
+        if (!isset($id)) {
+            header('Content-type: application/json');
+            echo json_encode(["error" => true, "message" => "Exercice ID is required."]);
+            exit;
+        }
+
+        try {
+            $result = $this->exerciceService->delete($id);
+            header('Content-type: application/json');
+            if (!$result) {
+                echo json_encode(["error" => false, "message" => `An error occurred while deleting the exercice with id : ${id}`]);
+            } else {
+                echo json_encode(["success" => true, "message" => "Exercice successfully deleted"]);
+            }
+            exit;
+        } catch (Throwable $e) {
+            header('Content-Type: application/json', true, 500);
+            echo json_encode(["error" => true, "message" => $e->getMessage()]);
+            exit;
+        }
     }
 
     public function fetchAll(): void

@@ -38,6 +38,7 @@ class AuthenticationController
         $_SESSION['user_id'] = $account->getId();
         $_SESSION['username'] = $account->getUsername();
         $_SESSION['email'] = $account->getEmail();
+        $_SESSION['is_admin'] = $account->isAdmin();
 
         header('Location: ' . makeUrl());
         exit();

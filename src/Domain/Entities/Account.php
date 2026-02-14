@@ -12,7 +12,6 @@ class Account extends BaseEntity
     private ?string $passwordHash;
     private bool $authenticated;
     private ?string $createdAt;
-
     private bool $isAdmin;
 
     public function __construct($id, $username, $email, $passwordHash, $authenticated = false, $createdAt = null, bool $isAdmin = false)

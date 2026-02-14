@@ -17,18 +17,7 @@ class AccountService
     {
         $pwd = password_hash($password, PASSWORD_DEFAULT);
         $account = new Account(null, $name, $email, $pwd);
-        return $this->accountRepository->save($account);
-    }
-
-    public function updateAccount(int $id, string $username, string $email): ?Account
-    {
-        $account = $this->accountRepository->retrieveById($id);
-        if (!$account) return null;
-
-        $account->setUsername($username);
-        $account->setEmail($email);
-
-        return $this->accountRepository->save($account);
+        return $this->accountRepository->create($account);
     }
 
     public function getAccountById(int $id): Account

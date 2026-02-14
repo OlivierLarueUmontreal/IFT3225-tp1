@@ -8,7 +8,7 @@
     }
 
     ?>
-    <!--    source: https://getbootstrap.com/docs/5.0/components/navbar/-->
+    <!--    source: https://getbootstrap.com/docs/4.0/components/navbar/-->
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <h1 class="navbar-brand">Exercices</h1>
@@ -18,8 +18,8 @@
                     <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                 </form>
 
-                <button type="button" class="btn btn-primary ml-3 btn-square" data-bs-toggle="modal"
-                        data-bs-target="#addExerciceModal" title="Add Exercice">
+                <button type="button" class="btn btn-primary ml-3 btn-square" data-toggle="modal"
+                        data-target="#addExerciceModal" title="Add Exercice">
                     <i class="fas fa-plus"></i>
                 </button>
 
@@ -34,56 +34,9 @@
 
 </div>
 
-
-
-
 <script>
-    async function loadExercices() {
-        const url = '<?= makeUrl('api/exercices'); ?>'
-
-        try {
-            const response = await fetch(url);
-            console.log("Response: " + response.status);
-            if (!response.ok) {
-                throw new Error(`Http Error retrieving Exercices, Status: ${response.status}`);
-            }
-            const data = await response.json();
-            console.log(data);
-            const exercicesList = document.getElementById('exercicesList');
-            if (!exercicesList) {
-                throw new Error("Could not find exercice list container")
-            }
-
-            if (data.length === 0) {
-                //display empty error message
-                exercicesList.innerHTML = `
-                    <div class="alert alert-info" role="alert">
-                        There are no exercices added to the system. Try adding one !
-                    </div>
-                `
-            } else {
-                // card reference: https://getbootstrap.com/docs/5.0/components/card/
-                exercicesList.innerHTML = data.map(exercice => `
-                    <div class="card text-center" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">${exercice.title}</h5>
-                            <div class="mb-2">
-                                ${exercice.bodyParts.map(bp => `<span class="mx-1 p-2 badge badge-pill badge-dark">${bp}</span>`).join("")}
-                            </div>
-
-                            <p class="card-text">${exercice.description}</p>
-                            <a href="#" class="btn btn-warning">Edit</a>
-                            <a href="#" class="btn btn-danger">Delete</a>
-                        </div>
-                    </div>
-                `).join("");
-            }
-        } catch (e) {
-            console.error("Failed to load Exercices:", e);
-        }
-
-    }
-
-    // on page load or on button click ? TODO
-    document.addEventListener('DOMContentLoaded', loadExercices);
+    // Inject the session ID into a global JS variable
+    const currentUserId = <?= json_encode($_SESSION['user_id'] ?? null) ?>;
+    const isAdmin = <?= json_encode($_SESSION['is_admin'] ?? null) ?>;
 </script>
+<script type="module" src="<?= makeUrl('public/js/exercices.js') ?>"></script>

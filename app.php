@@ -53,7 +53,7 @@ $exerciceRepository = new ExerciceRepository($connection);
 
 // Services
 $accountService = new AccountService($accountRepository);
-$exerciceService = new ExerciceService($exerciceRepository);
+$exerciceService = new ExerciceService($exerciceRepository, $accountRepository);
 
 //Controllers
 $accountController = new AccountController($accountService);

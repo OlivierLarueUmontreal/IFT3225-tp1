@@ -26,25 +26,34 @@ get('/logout', function() {
 });
 
 //Exercice
-get('/exercice/$id', VIEWS_PATH . '/Exercices/Exercice.php');
+//get('/exercice/$id', VIEWS_PATH . '/Exercices/Exercice.php');
 get('/exercices', VIEWS_PATH . '/Exercices/Exercices.php');
 post('/exercice/add', function(){
     global $exerciceController;
     $exerciceController->add();
 });
-
-
-//TEST purposes only to test callback on router, maybe remove or admin only
-get('/accounts' , function() {
-    global $accountController;
-    $accountController->showAll();
+delete('/exercice/delete/$id', function($id){
+    global $exerciceController;
+    $exerciceController->delete($id);
 });
 
-//Test de creation de compte sur post de /accounts
-post('/accounts', function() {
-    global $accountController;
-    $accountController->register();
+post('/exercice/update/$id', function(){
+    global $exerciceController;
+    $exerciceController->update();
 });
+
+//
+////TEST purposes only to test callback on router, maybe remove or admin only
+//get('/accounts' , function() {
+//    global $accountController;
+//    $accountController->showAll();
+//});
+//
+////Test de creation de compte sur post de /accounts
+//post('/accounts', function() {
+//    global $accountController;
+//    $accountController->register();
+//});
 
 get('/authenticate', function() {
     global $authenticationController;

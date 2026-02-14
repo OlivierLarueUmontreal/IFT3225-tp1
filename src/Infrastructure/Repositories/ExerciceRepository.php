@@ -5,19 +5,16 @@ namespace src\Infrastructure\Repositories;
 use Exception;
 use PDO;
 use PDOException;
-use src\Application\Repositories\IAccountRepository;
 use src\Application\Repositories\IExerciceRepository;
 use src\Domain\Entities\Exercice;
 
 class ExerciceRepository implements IExerciceRepository
 {
     private PDO $pdo;
-    private IAccountRepository $accountRepository;
 
-    function __construct(PDO $pdo, IAccountRepository $accountRepository)
+    function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
-        $this->accountRepository = $accountRepository;
     }
 
     public function retrieveAll(): array
@@ -32,12 +29,12 @@ class ExerciceRepository implements IExerciceRepository
         }
 
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return array_map(fn ($e) => $this->map($e), $result);
+        return array_map(fn($e) => $this->map($e), $result);
     }
 
     public function retrieveAllOfCreator($creatorId): array
     {
-        if(!isset($creatorId))
+        if (!isset($creatorId))
             throw new Exception("creatorId not set");
 
         $query = "SELECT * FROM exercices where creatorId = :creatorId";
@@ -50,7 +47,7 @@ class ExerciceRepository implements IExerciceRepository
         }
 
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return array_map(fn ($e) => $this->map($e), $result);
+        return array_map(fn($e) => $this->map($e), $result);
     }
 
     public function retrieveById($id): ?Exercice
@@ -72,7 +69,7 @@ class ExerciceRepository implements IExerciceRepository
         return $this->map($result);
     }
 
-    public function create(Exercice $exercice): ?Exercice
+    public function create(Exercice $exercice): bool
     {
         if ($exercice->getId() !== null)
             throw new Exception("Exercice {$exercice->getTitle()} already exists");
@@ -93,28 +90,32 @@ class ExerciceRepository implements IExerciceRepository
             throw new Exception("Could not store exercice {$exercice->getTitle()}: " . $e->getMessage());
         }
 
-        $lastInsertId = $this->pdo->lastInsertId();
-        return $this->retrieveById($lastInsertId);
+        return true;
     }
 
+    public function update(Exercice $exercice): bool
+    {
+        $rawBodyParts = $this->mapBodyPartsToRaw($exercice->getBodyParts());
+        $query = "UPDATE exercices SET title = :title, description = :description, bodyparts = :bodyparts WHERE id = :id";
+        $values = ['id' => $exercice->getId(), 'title' => $exercice->getTitle(), 'description' => $exercice->getDescription(), 'bodyparts' => $rawBodyParts];
+        try {
+            $statement = $this->pdo->prepare($query);
+            $statement->execute($values);
+        } catch (PDOException $e) {
+            throw new Exception("Could not update exercice {$exercice->getTitle()}: " . $e->getMessage());
+        }
+
+        return true;
+    }
 
     public function delete(Exercice $exercice): bool
     {
-        $user_id = $_SESSION["user_id"];
-        if($user_id === null)
-            throw new Exception("You must be logged in to delete an exercice");
-
-        $isAdmin = $this->accountRepository->IsAdmin($user_id);
-        if($user_id !== $exercice->getCreatorId() && !$isAdmin)
-            throw new Exception("You must be an admin to delete an exercice that you do not own.");
-
-        //other wise, you either are deleting ur own exercices OR you are admin
         $query = "DELETE FROM exercices WHERE id = :id";
         $values = [":id" => $exercice->getId()];
-        try{
+        try {
             $statement = $this->pdo->prepare($query);
             return $statement->execute($values);
-        }catch (PDOException $e){
+        } catch (PDOException $e) {
             throw new Exception("Could not delete exercice with id: " . $e->getMessage());
         }
     }

@@ -113,15 +113,7 @@ class AccountRepository implements IAccountRepository
         }
     }
 
-    public function save(Account $account): ?Account
-    {
-        if ($account->getId() === null)
-            return $this->create($account);
-
-        return $this->update($account);
-    }
-
-    private function create(Account $account): ?Account
+    public function create(Account $account): ?Account
     {
         if(!(($this->retrieveByUsername($account->getUserName()) === null) && ($this->retrieveByEmail($account->getEmail()) === null))){
             echo "Account creation unsucessful. Username/email already exists\n";
@@ -146,28 +138,12 @@ class AccountRepository implements IAccountRepository
         return $this->retrieveById($lastId);
     }
 
-
     public function IsAdmin($id): bool
     {
         $account = $this->retrieveById($id);
         if ($account === null) return false;
 
-        $account->getIsAdmin();
-    }
-
-    private function update(Account $account): Account
-    {
-        $query = "UPDATE accounts SET username = :username, password = :password WHERE id = :id";
-        $values = ['id' => $account->getId(), 'name' => $account->getUsername(), 'email' => $account->getEmail()];
-
-        try {
-            $statement = $this->pdo->prepare($query);
-            $statement->execute($values);
-        } catch (PDOException $e) {
-            throw new Exception("Could not update user: , db error: " . $e->getMessage());
-        }
-
-        return $account;
+        return $account->isAdmin();
     }
 
     private function map(array $data): Account
