@@ -49,6 +49,6 @@ class AccountController
         $_SESSION['email'] = $account->getEmail();
         $_SESSION['is_admin'] = $account->isAdmin();
 
-        header('Location: ' . makeUrl());
+        header('Location: ' . makeUrl('exercices'));
     }
 }

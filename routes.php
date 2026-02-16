@@ -49,11 +49,12 @@ post('/exercice/update/$id', function(){
 //    $accountController->showAll();
 //});
 //
+
 ////Test de creation de compte sur post de /accounts
-//post('/accounts', function() {
-//    global $accountController;
-//    $accountController->register();
-//});
+post('/accounts', function() {
+   global $accountController;
+   $accountController->register();
+});
 
 get('/authenticate', function() {
     global $authenticationController;
