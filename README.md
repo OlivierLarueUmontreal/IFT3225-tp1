@@ -11,7 +11,7 @@ L'utilisateur peut modifier et supprimer les exercices qu'il a ajouter a l'appli
 > (TODO: pas sur encore) L'utilisateur peut creer un entrainement, qui se trouve a etre une liste d'exercies choisi par l'utilisateur, permettant a celui-ci de suivre la routine de l'entrainement et de (TODO:peut-etre) suivre le poids et les repetitions utiliser pour l'exercice, permettant a celui-ci de suivre son progres.
 ### Developpé par 
 - Olivier Larue (20269986)
-- TODO mettre ton nom et matricule
+- Cao Hung Nguyen (20246446)
 
 ## Code base utilisera une forme tres 'lousse' de la CLEAN architecture pour permettre une belle séparation du travail.
 voir les liens pour sur lesquels je me suis inspiré: 
