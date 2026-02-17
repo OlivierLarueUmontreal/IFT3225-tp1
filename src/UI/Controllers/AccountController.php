@@ -22,6 +22,14 @@ class AccountController
         require VIEWS_PATH . '/Accounts/accounts.php';
     }
 
+     public function showMyAccount(): void
+    {
+        $user_id = $_SESSION['user_id'];
+        $myAccount = $this->accountService->getAccountById($user_id);
+
+        require VIEWS_PATH . '/Accounts/my-account.php';
+    }
+
     public function register(): void
     {
         $username = $_POST['username'];

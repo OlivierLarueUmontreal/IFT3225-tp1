@@ -28,7 +28,7 @@ class Account extends BaseEntity
 
     function __destruct()
     {
-        echo "username: " . $this->username . ". Email: " . $this->email . ".<br>";
+        // echo "username: " . $this->username . ". Email: " . $this->email . ".<br>";
     }
 
     public function getUsername(): ?string

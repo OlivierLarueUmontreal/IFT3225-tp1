@@ -49,6 +49,12 @@ post('/exercice/update/$id', function(){
 //
 
 ////Test de creation de compte sur post de /accounts
+
+get('/my-account', function(){
+    global $accountController;
+    $accountController->showMyAccount();
+});
+
 post('/accounts', function() {
    global $accountController;
    $accountController->register();

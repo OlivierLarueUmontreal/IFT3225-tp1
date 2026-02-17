@@ -1,15 +1,15 @@
+<?php
+include_once VIEWS_PATH . '/Components/Header.php';
+
+if (empty($_SESSION['username'])) {
+    header('Location: ' . makeUrl('login'));
+    return;
+}
+
+?>
 <div class="content-wrapper">
-    <?php
-    include_once VIEWS_PATH . '/Components/Header.php';
-
-    if (empty($_SESSION['username'])) {
-        header('Location: ' . makeUrl('login'));
-        return;
-    }
-
-    ?>
     <!--    source: https://getbootstrap.com/docs/4.0/components/navbar/-->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-light" style = "margin-bottom: 40px">
         <div class="container-fluid">
             <div class="d-flex align-items-center">
                 <h1 class="navbar-brand mb-0">Exercices</h1>

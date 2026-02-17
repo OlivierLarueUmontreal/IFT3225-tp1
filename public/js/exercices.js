@@ -4,7 +4,7 @@ const baseUrl = '/IFT3225-tp1'
 import {renderExerciceCard} from './components/exerciceCard.js'
 
 let exercices = [];
-let cardsPerPage = 3;
+let cardsPerPage = 6;
 let activeBodyFilters = [];
 
 async function loadExercices() {
@@ -62,7 +62,6 @@ function renderPagination(exercicesToRender, pageNum){
         item => {
             item.addEventListener('click', () => {
                 let i = parseInt(item.querySelector('a.page-link').textContent.trim());
-                console.log(`page clicked ${i}`);
                 renderExercices(exercicesToRender, i);
             })
         }
@@ -78,8 +77,6 @@ function renderPagination(exercicesToRender, pageNum){
             renderExercices(exercicesToRender, pageNum +1);
         }
     })
-
-    // console.log(pageItem);
 }
 
 //EventListeners:
