@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `exercices` (
 
 -- Create default admin user
 INSERT INTO `accounts` (username, email, password, is_admin, register_time)
-SELECT 'admin', 'admin@example.com', 'admin', 1, NOW()
+SELECT 'admin', 'admin@example.com', '$2y$10$.c3Kgpqt.2dxd5ri1PHzLuYdlpzYYAEBG3BMCtIq3SsmOh88UB/je', 1, NOW()
 FROM DUAL
 WHERE NOT EXISTS (SELECT 1 FROM `accounts` WHERE username = 'admin')
 LIMIT 1;

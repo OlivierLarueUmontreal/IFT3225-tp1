@@ -1,5 +1,14 @@
 # IFT3225-tp1
 Repo de code pour le TP1 du cours IFT3225 technologies de l'internet.
+
+## Table of Contents
+
+- [Sujet](#sujet)
+- [Developpé par](#developpé-par)
+- [Bootstrap guide](#bootstrap-guide)
+- [Code base et architecture](#code-base-utilisera-une-forme-tres-lousse-de-la-clean-architecture-pour-permettre-une-belle-séparation-du-travail)
+- [Liens utiles](#liens-utiles)
+
 ### Sujet
 Application web utilisant la stack LAMP. L'application permet l'ajout d'exercices pour la creation personnaliser d'entrainement.
 
@@ -12,6 +21,11 @@ L'utilisateur peut modifier et supprimer les exercices qu'il a ajouter a l'appli
 ### Developpé par 
 - Olivier Larue (20269986)
 - Cao Hung Nguyen (20246446)
+
+### Bootstrap guide
+- Start MAMP application, put this folder under htdocs/IFT3225-tp1
+- Run scripts/init_mysql_tp1.sql to setup db & create default admin account (username: admin, password: ift3225)
+- The project is live at [localhost/IFT3225-tp1](http://localhost/IFT3225-tp1/home)
 
 ## Code base utilisera une forme tres 'lousse' de la CLEAN architecture pour permettre une belle séparation du travail.
 voir les liens pour sur lesquels je me suis inspiré: 
