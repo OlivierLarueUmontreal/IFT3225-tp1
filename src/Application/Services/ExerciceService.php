@@ -28,6 +28,25 @@ class ExerciceService
         return $this->exerciceRepository->retrieveAllOfCreator($creatorId);
     }
 
+    /**
+     * Prepare exercices for API responses by serializing and adding creator username.
+     * Returns an array of associative arrays ready for json_encode.
+     */
+    public function formatForApi(array $exercices): array
+    {
+        return array_map(function($ex) {
+            $data = $ex->jsonSerialize();
+            $creatorId = $ex->getCreatorId();
+            $username = null;
+            if ($creatorId !== null) {
+                $account = $this->accountRepository->retrieveById($creatorId);
+                if ($account !== null) $username = $account->getUsername();
+            }
+            $data['creatorUsername'] = $username;
+            return $data;
+        }, $exercices);
+    }
+
     public function create(string $title, string $description, array $bodyParts, int $creatorId): bool
     {
         $user_id = $_SESSION["user_id"];

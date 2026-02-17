@@ -22,6 +22,14 @@ CREATE TABLE IF NOT EXISTS `exercices` (
   `description` TEXT,
   `bodyparts` TEXT,
   `creatorId` INT UNSIGNED,
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_exercices_creator` FOREIGN KEY (`creatorId`) REFERENCES `accounts`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Create default admin user
+INSERT INTO `accounts` (username, email, password, is_admin, register_time)
+SELECT 'admin', 'admin@example.com', 'admin', 1, NOW()
+FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM `accounts` WHERE username = 'admin')
+LIMIT 1;

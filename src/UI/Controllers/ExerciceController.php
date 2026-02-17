@@ -111,13 +111,17 @@ class ExerciceController
     public function fetchAll(): void
     {
         try {
-            if($_SESSION['is_admin'] == true){
-                $data = $this->exerciceService->getAll();
-            } else {
-                $creatorId = $_SESSION['user_id'];
-                $data = $this->exerciceService->getByCreatorId($creatorId);
-            }
-            
+            // if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true) {
+            //     $raw = $this->exerciceService->getAll();
+            // } else {
+            //     $creatorId = $_SESSION['user_id'] ?? null;
+            //     $raw = $this->exerciceService->getByCreatorId($creatorId);
+            // }
+            $raw = $this->exerciceService->getAll();
+
+
+            $data = $this->exerciceService->formatForApi($raw);
+
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($data);
             exit;

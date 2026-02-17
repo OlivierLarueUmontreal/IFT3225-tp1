@@ -5,11 +5,16 @@ export function renderExerciceCard(exercice) {
             <div class="card text-center exercice-card h-100" data-id="${exercice.id}">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">${exercice.title}</h5>
+                    ${exercice.createdAt || exercice.creatorId || exercice.creatorUsername ? `
+                        ${exercice.createdAt ? `<p class="text-muted small mb-1">Created: ${exercice.createdAt}</p>` : ''}
+                        ${ (exercice.creatorUsername || exercice.creatorId) ? `<p class="text-muted small mb-2">Created by: ${exercice.creatorUsername ? exercice.creatorUsername : exercice.creatorId}</p>` : ''}
+                    ` : ''}
                     <div class="mb-2">
                         ${exercice.bodyParts.map(bp => `<span class="mx-1 p-2 badge badge-pill badge-dark">${bp}</span>`).join("")}
                     </div>
 
                     <p class="card-text flex-grow-1">${exercice.description}</p>
+                    ${ ((typeof currentUserId !== 'undefined' && currentUserId !== null && String(exercice.creatorId) === String(currentUserId)) || (typeof isAdmin !== 'undefined' && isAdmin)) ? `
                     <div class="mt-2">
                             <button 
                                 class="btn btn-warning btn-edit mr-2" 
@@ -20,6 +25,7 @@ export function renderExerciceCard(exercice) {
                             </button>
                             <button id="btn-delete-exercice" class="btn btn-danger btn-delete" data-id="${exercice.id}">Delete</button>
                     </div>
+                    ` : ''}
                 </div>
             </div>
         </div>`;
