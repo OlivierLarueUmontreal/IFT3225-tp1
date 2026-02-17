@@ -30,6 +30,13 @@ $isLoggedIn = !empty($_SESSION['username']);
 
             <ul class="navbar-nav ml-auto">
                 <?php if ($isLoggedIn): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= makeUrl('exercices') ?>">My Exercices</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= makeUrl('accounts') ?>">My Account</a>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,6 +44,8 @@ $isLoggedIn = !empty($_SESSION['username']);
                         </a>
                         <!-- profile Dropdown menu -->
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="<?= makeUrl('accounts') ?>">Profile</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="<?= makeUrl('logout') ?>">Logout</a>
                         </div>
                     </li>

@@ -96,7 +96,7 @@ class ExerciceController
             $result = $this->exerciceService->delete($id);
             header('Content-type: application/json');
             if (!$result) {
-                echo json_encode(["error" => false, "message" => `An error occurred while deleting the exercice with id : ${id}`]);
+                echo json_encode(["error" => false, "message" => `An error occurred while deleting the exercice with id : {$id}`]);
             } else {
                 echo json_encode(["success" => true, "message" => "Exercice successfully deleted"]);
             }
@@ -111,7 +111,13 @@ class ExerciceController
     public function fetchAll(): void
     {
         try {
-            $data = $this->exerciceService->getAll();
+            if($_SESSION['is_admin'] == true){
+                $data = $this->exerciceService->getAll();
+            } else {
+                $creatorId = $_SESSION['user_id'];
+                $data = $this->exerciceService->getByCreatorId($creatorId);
+            }
+            
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($data);
             exit;

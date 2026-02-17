@@ -4,32 +4,90 @@ const baseUrl = '/IFT3225-tp1'
 import {renderExerciceCard} from './components/exerciceCard.js'
 
 let exercices = [];
+let cardsPerPage = 3;
+let activeBodyFilters = [];
 
 async function loadExercices() {
     const url = `${baseUrl}/api/exercices`
     try {
         const response = await fetch(url);
         const data = await response.json();
-        exercices = data;
+        exercices = data.reverse();
         const exercicesList = document.getElementById('exercicesList');
 
         if (data.length === 0) {
-            //display empty error message
+            // simple, centered empty state
             exercicesList.innerHTML = `
-                <div class="alert alert-info" role="alert">
-                    There are no exercices added to the system. Try adding one !
+                <div class="d-flex justify-content-center align-items-center" style="min-height:200px;">
+                    <p class="text-muted mb-0">No exercices added yet. Try adding one.</p>
                 </div>`;
         } else {
-            exercicesList.innerHTML = data.map(renderExerciceCard).join("");
+            renderExercices(exercices, 1)
         }
     } catch (e) {
         console.error("Failed to load Exercices:", e);
     }
+    
+}
+
+function renderExercices(exercicesToRender, pageNum){
+    const exercicesList = document.getElementById('exercicesList');
+    let startNum = (pageNum - 1) * cardsPerPage
+    let pagedExercices = exercicesToRender.slice(startNum, startNum + cardsPerPage)
+    exercicesList.innerHTML = pagedExercices.map(renderExerciceCard).join("");
+    renderPagination(exercicesToRender, pageNum)
+
+}
+
+function renderPagination(exercicesToRender, pageNum){
+    let n = Math.ceil(exercicesToRender.length /cardsPerPage);
+    const exercicesPagination = document.getElementById("exercicesPagination");
+    exercicesPagination.innerHTML = `
+        <li class="page-item ${(pageNum == 1) ? "disabled" : ""}" id="exPagePrev">
+            <a class="page-link" href="#" aria-label="Previous" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+    `
+    for(let i = 1; i<=n; i++){
+        exercicesPagination.innerHTML += `
+            <li class="page-item page-item-num ${(i == pageNum) ? "active" : ""}"><a class="page-link" href="#">${i}</a></li>
+        `
+    }
+    exercicesPagination.innerHTML += `
+        <li class="page-item ${(pageNum == n) ? "disabled" : ""}" id="exPageNext">
+            <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+    `
+    let pageItem = document.querySelectorAll('.page-item-num');
+    pageItem.forEach(
+        item => {
+            item.addEventListener('click', () => {
+                let i = parseInt(item.querySelector('a.page-link').textContent.trim());
+                console.log(`page clicked ${i}`);
+                renderExercices(exercicesToRender, i);
+            })
+        }
+    )
+
+    document.getElementById("exPagePrev").addEventListener('click', () => {
+        if(pageNum > 1){
+            renderExercices(exercicesToRender, pageNum -1);
+        }
+    })
+    document.getElementById("exPageNext").addEventListener('click', () => {
+        if(pageNum < n){
+            renderExercices(exercicesToRender, pageNum +1);
+        }
+    })
+
+    // console.log(pageItem);
 }
 
 //EventListeners:
 // on page load or on button click ? TODO
-document.addEventListener('DOMContentLoaded', loadExercices);
+document.addEventListener('DOMContentLoaded', () => {
+    loadExercices();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('exerciceForm');
 
@@ -69,11 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("Error: " + err.error);
             }
         } catch (e) {
-            console.error("Update failed".e);
+            console.error("Update failed", e);
         }
 
     });
-
+    
 });
 
 // Edit Button modal
@@ -142,3 +200,85 @@ document.addEventListener('click', async function (e) {
     }
 
 });
+
+const searchInput = document.getElementById('searchInput');
+const searchButton = document.getElementById('searchButton');
+
+searchButton.addEventListener('click', function () {
+
+    // If exercices not loaded yet, load then apply filter
+    if (!exercices || exercices.length === 0) {
+        loadExercices().then(() => applyFilter(q));
+        return;
+    }
+    applyFilter();
+    }
+);
+
+document.getElementById('clearSearchButton').addEventListener('click', () => {
+    renderExercices(exercices, 1);
+})
+
+function applyFilter() {
+    const exercicesList = document.getElementById('exercicesList');
+    const q = searchInput.value.trim().toLowerCase();
+
+    let filtered = exercices.filter(ex => {
+        const title = (ex.title || '').toLowerCase();
+        const desc = (ex.description || '').toLowerCase();
+        const body = (ex.bodyParts || []).join(' ').toLowerCase();
+        return title.includes(q) || desc.includes(q) || body.includes(q);
+    });
+
+    if (activeBodyFilters && activeBodyFilters.length > 0) {
+        filtered = filtered.filter(ex => {
+            const parts = ex.bodyParts || [];
+            return parts.some(p => activeBodyFilters.includes(p));
+        });
+    }
+
+    if (filtered.length === 0) {
+        exercicesList.innerHTML = `\
+            <div class="d-flex justify-content-center align-items-center" style="min-height:200px;">\
+                <p class="text-muted mb-0" style = "">No exercices found.</p>\
+            </div>`;
+    } else {
+        renderExercices(filtered, 1);
+        // exercicesList.innerHTML = filtered.map(renderExerciceCard).join("");
+    }
+}
+
+
+// Body filter buttons: collect selected values and emit an event for other code to handle
+document.addEventListener('DOMContentLoaded', () => {
+    const applyBtn = document.getElementById('applyBodyFilter');
+    const clearBtn = document.getElementById('clearBodyFilter');
+
+    function collectSelectedFilters() {
+        const checked = document.querySelectorAll('#bodyFilterForm input[name="filterBodyParts[]"]:checked');
+        return Array.from(checked).map(cb => cb.value);
+    }
+
+    if (applyBtn) {
+        applyBtn.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            activeBodyFilters = collectSelectedFilters();
+            // notify listeners — user code can listen for this event
+            document.dispatchEvent(new CustomEvent('bodyFiltersChanged'));
+        });
+    }
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            const boxes = document.querySelectorAll('#bodyFilterForm input[name="filterBodyParts[]"]');
+            boxes.forEach(cb => cb.checked = false);
+            activeBodyFilters = [];
+            document.dispatchEvent(new CustomEvent('bodyFiltersChanged'));
+        });
+    }
+});
+
+document.addEventListener('bodyFiltersChanged', () => {
+    applyFilter();
+})

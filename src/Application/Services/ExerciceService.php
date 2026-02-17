@@ -23,6 +23,11 @@ class ExerciceService
         return $this->exerciceRepository->retrieveAll();
     }
 
+    public function getByCreatorId(int $creatorId): array
+    {
+        return $this->exerciceRepository->retrieveAllOfCreator($creatorId);
+    }
+
     public function create(string $title, string $description, array $bodyParts, int $creatorId): bool
     {
         $user_id = $_SESSION["user_id"];

@@ -15,8 +15,6 @@ get('/', function () {
 //home
 get('/home', VIEWS_PATH . '/Exercices/Exercices.php');
 
-get('/app.js', VIEWS_PATH . '/app.js.php');
-
 //Register and logins
 get('/register', VIEWS_PATH . '/Connexions/Register.php');
 get('/login', VIEWS_PATH . '/Connexions/Login.php');
