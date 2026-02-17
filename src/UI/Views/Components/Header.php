@@ -1,5 +1,13 @@
 <?php
 $isLoggedIn = !empty($_SESSION['username']);
+
+// Determine current route (relative to BASE_URL) to set active nav links
+$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+$requestPath = strtok($requestUri, '?');
+$requestPath = rtrim($requestPath, '/');
+$requestPath = preg_replace('#^' . preg_quote(BASE_URL) . '#', '', $requestPath);
+$route = ltrim($requestPath, '/');
+$firstSegment = explode('/', $route)[0] ?? '';
 ?>
 
 <!doctype html>
@@ -19,7 +27,7 @@ $isLoggedIn = !empty($_SESSION['username']);
 
 </head>
 <body>
-<header>
+<header style = "margin-bottom: 40px">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="<?= makeUrl('') ?>">TP1 App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -30,6 +38,13 @@ $isLoggedIn = !empty($_SESSION['username']);
 
             <ul class="navbar-nav ml-auto">
                 <?php if ($isLoggedIn): ?>
+                    <li class="nav-item">
+                        <a class="nav-link <?= ($firstSegment === 'exercices') ? 'active' : '' ?>" href="<?= makeUrl('exercices') ?>">My Exercices</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= ($firstSegment === 'my-account' || $firstSegment === 'accounts') ? 'active' : '' ?>" href="<?= makeUrl('my-account') ?>">My Account</a>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,6 +52,8 @@ $isLoggedIn = !empty($_SESSION['username']);
                         </a>
                         <!-- profile Dropdown menu -->
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="<?= makeUrl('accounts') ?>">Profile</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="<?= makeUrl('logout') ?>">Logout</a>
                         </div>
                     </li>

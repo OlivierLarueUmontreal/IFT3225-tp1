@@ -4,6 +4,6 @@
 return [
     'host' => getenv('DB_HOST') ?: 'localhost',
     'db' => getenv('DB_NAME') ?: 'tp1',
-    'username' => getenv('DB_USER') ?: 'admin',
-    'pwd' => getenv('DB_PASS') ?: 'admin',
+    'username' => getenv('DB_USER') ?: 'root',
+    'pwd' => getenv('DB_PASS') ?: 'root',
 ];

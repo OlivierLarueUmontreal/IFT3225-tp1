@@ -11,8 +11,9 @@ class Exercice extends BaseEntity Implements JsonSerializable
     private string $description;
     private array $bodyParts; // array of BodyParts enum
     private ?int $creatorId;
+    private ?string $createdAt;
 
-    function __construct(?int $id, string $title, string $description, array $bodyParts, $creatorId)
+    function __construct(?int $id, string $title, string $description, array $bodyParts, $creatorId, ?string $createdAt = null)
     {
         parent::__construct($id);
 
@@ -20,6 +21,7 @@ class Exercice extends BaseEntity Implements JsonSerializable
         $this->description = $description;
         $this->bodyParts = $bodyParts;
         $this->creatorId = $creatorId;
+        $this->createdAt = $createdAt;
     }
 
     public function getTitle(): string
@@ -62,6 +64,16 @@ class Exercice extends BaseEntity Implements JsonSerializable
         $this->creatorId = $creatorId;
     }
 
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?string $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
     public function jsonSerialize(): mixed
     {
         return [
@@ -70,6 +82,7 @@ class Exercice extends BaseEntity Implements JsonSerializable
             'description' => $this->description,
             'bodyParts'   => $this->bodyParts,
             'creatorId'   => $this->creatorId,
+            'createdAt'   => $this->createdAt,
         ];
     }
 }

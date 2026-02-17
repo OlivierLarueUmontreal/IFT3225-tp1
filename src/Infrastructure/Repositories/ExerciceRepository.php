@@ -128,6 +128,7 @@ class ExerciceRepository implements IExerciceRepository
             $data['description'],
             $this->mapBodyParts($data["bodyparts"]),
             $data['creatorId'],
+            $data['createdAt']
         );
     }
 

@@ -54,6 +54,7 @@ class AuthenticationController
         unset($_SESSION['user_id']);
         unset($_SESSION['username']);
         unset($_SESSION['email']);
+        unset($_SESSION['is_admin']);
 
         session_destroy();
         header('Location: ' . makeUrl('login'));

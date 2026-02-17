@@ -15,8 +15,6 @@ get('/', function () {
 //home
 get('/home', VIEWS_PATH . '/Exercices/Exercices.php');
 
-get('/app.js', VIEWS_PATH . '/app.js.php');
-
 //Register and logins
 get('/register', VIEWS_PATH . '/Connexions/Register.php');
 get('/login', VIEWS_PATH . '/Connexions/Login.php');
@@ -49,11 +47,18 @@ post('/exercice/update/$id', function(){
 //    $accountController->showAll();
 //});
 //
+
 ////Test de creation de compte sur post de /accounts
-//post('/accounts', function() {
-//    global $accountController;
-//    $accountController->register();
-//});
+
+get('/my-account', function(){
+    global $accountController;
+    $accountController->showMyAccount();
+});
+
+post('/accounts', function() {
+   global $accountController;
+   $accountController->register();
+});
 
 get('/authenticate', function() {
     global $authenticationController;

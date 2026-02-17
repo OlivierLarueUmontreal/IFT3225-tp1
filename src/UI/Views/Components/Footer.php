@@ -19,9 +19,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-<!--<script src="--><?php //=makeUrl('app.js')?><!--" defer></script>-->
-
-<script src="<?= makeUrl('src/UI/Views/app.js.php') ?>" defer></script>
 <script src="https://kit.fontawesome.com/efd10e98b4.js" crossorigin="anonymous"></script>
 
 </body>
