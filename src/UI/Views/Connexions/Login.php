@@ -21,9 +21,9 @@
         </div>
     <?php endif; ?>
 
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center align-items-center mt-5 shadow-lg">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card login-card">
                 <div class="card-body">
                     <h3 class="card-title mb-4">Connexion</h3>
                     <form method="post" action="<?= makeUrl('authenticate') ?>">
@@ -32,12 +32,12 @@
                         } ?>
                         <div class="form-group">
                             <label for="identifier">Email or Username</label>
-                            <input type="text" class="form-control" id="identifier" name="identifier"
+                            <input type="text" class="form-control dark-input" id="identifier" name="identifier"
                                    placeholder="Email or username" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password"
+                            <input type="password" class="form-control dark-input" id="password" name="password"
                                    placeholder="Password" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>

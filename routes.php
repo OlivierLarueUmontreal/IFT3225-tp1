@@ -26,6 +26,10 @@ get('/logout', function() {
 //Exercice
 //get('/exercice/$id', VIEWS_PATH . '/Exercices/Exercice.php');
 get('/exercices', VIEWS_PATH . '/Exercices/Exercices.php');
+get('/myexercices', function(){
+    global $exerciceController;
+    $exerciceController->fetchByCreatorId();
+});
 post('/exercice/add', function(){
     global $exerciceController;
     $exerciceController->add();

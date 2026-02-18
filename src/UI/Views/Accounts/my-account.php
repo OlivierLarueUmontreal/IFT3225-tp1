@@ -8,7 +8,7 @@ include_once VIEWS_PATH . '/Components/Header.php';
     <?php if (empty($myAccount)): ?>
         <div class="alert alert-warning">Account information not found.</div>
     <?php else: ?>
-        <div class="card" style="max-width:700px;">
+        <div class="card my-account-card" style="max-width:700px;">
             <div class="card-body">
                 <h5 class="card-title"><?= htmlspecialchars($myAccount->getUsername()) ?></h5>
                 <p class="card-text"><strong>Email:</strong> <?= htmlspecialchars($myAccount->getEmail()) ?></p>

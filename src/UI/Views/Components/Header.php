@@ -27,22 +27,23 @@ $firstSegment = explode('/', $route)[0] ?? '';
 
 </head>
 <body>
-<header style = "margin-bottom: 40px">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<header style="margin-bottom: 40px">
+    <nav class="navbar navbar-expand-lg header-navbar">
         <a class="navbar-brand" href="<?= makeUrl('') ?>">TP1 App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon "></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-
             <ul class="navbar-nav ml-auto">
                 <?php if ($isLoggedIn): ?>
                     <li class="nav-item">
-                        <a class="nav-link <?= ($firstSegment === 'exercices') ? 'active' : '' ?>" href="<?= makeUrl('exercices') ?>">My Exercices</a>
+                        <a class="nav-link <?= ($firstSegment === 'exercices') ? 'active' : '' ?>"
+                           href="<?= makeUrl('myexercices') ?>">My Exercices</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= ($firstSegment === 'my-account' || $firstSegment === 'accounts') ? 'active' : '' ?>" href="<?= makeUrl('my-account') ?>">My Account</a>
+                        <a class="nav-link <?= ($firstSegment === 'my-account' || $firstSegment === 'accounts') ? 'active' : '' ?>"
+                           href="<?= makeUrl('my-account') ?>">My Account</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -52,7 +53,7 @@ $firstSegment = explode('/', $route)[0] ?? '';
                         </a>
                         <!-- profile Dropdown menu -->
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="<?= makeUrl('accounts') ?>">Profile</a>
+                            <a class="dropdown-item" href="<?= makeUrl('my-account') ?>">Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="<?= makeUrl('logout') ?>">Logout</a>
                         </div>

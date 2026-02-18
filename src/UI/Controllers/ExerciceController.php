@@ -121,7 +121,6 @@ class ExerciceController
 
 
             $data = $this->exerciceService->formatForApi($raw);
-
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($data);
             exit;
@@ -134,5 +133,23 @@ class ExerciceController
             ]);
             exit;
         }
+    }
+
+    public function fetchByCreatorId(): void
+    {
+        try {
+            $id = $_SESSION['user_id'];
+            $raw = $this->exerciceService->getByCreatorId($id);
+            $data = $this->exerciceService->formatForApi($raw);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($data);
+            exit;
+        } catch (Throwable $e) {
+            header('Content-Type: application/json', true, 500);
+            echo json_encode([
+                "error" => $e->getMessage(),
+            ]);
+        }
+
     }
 }

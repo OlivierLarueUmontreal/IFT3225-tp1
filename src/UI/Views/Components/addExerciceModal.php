@@ -2,14 +2,14 @@
 
 ?>
 <!-- source: https://getbootstrap.com/docs/4.0/components/modal/-->
-<div class="modal fade" id="addExerciceModal" tabindex="-1" role="dialog" aria-labelledby="addExerciceModalLabel"
+<div class="modal fade " id="addExerciceModal" tabindex="-1" role="dialog" aria-labelledby="addExerciceModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content dark-modal shadow-lg">
             <div class="modal-header">
                 <h5 class="modal-title" id="addExerciceModalLabel">Add an exercice</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="text-white">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -17,13 +17,13 @@
                 <form class="needs-validation" id="exerciceForm" method="POST" novalidate action="<?= makeUrl('exercice/add') ?>">
                     <div class="form-group">
                         <label for="titleInput">Title</label>
-                        <input name="title" type="text" class="form-control" id="titleInput"
-                               placeholder="Enter title" required>
+                        <input name="title" type="text" class="form-control dark-input" id="titleInput"
+                               placeholder="ex: Chest Press" required>
                         <div class="invalid-feedback">Please choose a title.</div>
                     </div>
                     <div class="form-group">
                         <label for="descriptionTextarea">Description</label>
-                        <textarea name="description" rows="3" class="form-control" id="descriptionTextarea" placeholder="Description"
+                        <textarea name="description" rows="3" class="form-control dark-input" id="descriptionTextarea" placeholder="Provide a description"
                                   required></textarea>
                         <div class="invalid-feedback">Please provide a description.</div>
                     </div>
@@ -79,7 +79,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" form="exerciceForm" class="btn btn-primary">Save</button>
             </div>
         </div>

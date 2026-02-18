@@ -36,6 +36,11 @@ class AccountController
         $email = $_POST['email'];
         $password = $_POST['password'];
 
+        $emailPattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+        $sanitized_email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        if(!preg_match($emailPattern, $sanitized_email))
+            throw new Exception("Email invalid.");
+
         if (empty($username))
             throw new Exception("Veuillez entrer le nom d'utilisateur");
 

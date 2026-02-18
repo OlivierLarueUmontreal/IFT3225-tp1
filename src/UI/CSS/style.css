@@ -26,6 +26,42 @@ nav a:hover {
     opacity: 0.8;
 }
 
+.dark-modal {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333 !important;
+    border-radius: 15px;
+}
+
+.dark-modal .modal-header,
+.dark-modal .modal-footer {
+    border-color: #333 !important;
+}
+
+.header-navbar {
+    background-color: #1e1e1e !important;
+    border-bottom: 1px solid #333;
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
+}
+
+.tool-navbar {
+    background-color: #1e1e1e !important;
+    border-radius: 50px;
+    border: 1px solid #333 !important;
+    margin: 0 auto 40px auto;
+}
+
+.navbar-toggler-icon {
+    color: white;
+}
+
+.exercices-filter-menu {
+    background-color: #1e1e1e !important;
+    color: white !important;
+}
+
 .btn-square {
     height: calc(1.5em + .75rem + 2px);
     padding: 0 12px;
@@ -34,11 +70,30 @@ nav a:hover {
     justify-content: center;
 }
 
-/* --- FOOTER --- */
-footer {
-    text-align: center;
-    padding: 1.5rem 0;
-    margin-top: 2rem;
+.login-card {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333 !important;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-input {
+    background-color: #2b2b2b !important;
+    border: 1px solid #444 !important;
+    color: white !important;
+}
+
+.auth-card {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333 !important;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Input Placeholder Color */
+.auth-input::placeholder {
+    color: #666;
+    font-size: 0.9rem;
 }
 
 /* Make footer stick to bottom when content is short */
@@ -46,24 +101,77 @@ html, body {
     height: 100%;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-}
-
 main.container {
     flex: 1 0 auto;
 }
 
-footer {
-    margin-top: auto;
+.badge-pill {
+    font-weight: 500;
+    color: #bbb;
+    border-color: #444;
+    background: transparent;
 }
 
-/* make layout resilient: ensure body fills viewport */
+.pagination .page-link {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: #aaa;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    border-color: #007bff;
+    color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #121212;
+    border-color: #333;
+    color: #555;
+}
+
+.exercice-card {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333 !important;
+    color: white !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.exercice-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5) !important;
+    border-color: #444 !important;
+}
+
+.my-account-card {
+    background-color: #1e1e1e !important;
+    color: white;
+}
+
+#searchInput {
+    background-color: #2b2b2b !important;
+    border: 1px solid #444 !important;
+    color: white !important;
+    border-radius: 20px 0 0 20px;
+}
+
+#searchButton {
+    border-radius: 0 20px 20px 0;
+    border-color: #444;
+}
+
 body {
     min-height: 100vh;
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+    display: flex;
+    flex-direction: column;
 }
 
 footer {
     flex-shrink: 0;
+    margin-top: auto;
+    text-align: center;
+    padding: 1.5rem 0;
 }

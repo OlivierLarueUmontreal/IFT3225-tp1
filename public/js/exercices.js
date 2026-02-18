@@ -11,7 +11,12 @@ async function loadExercices() {
     const url = `${baseUrl}/api/exercices`
     try {
         const response = await fetch(url);
-        const data = await response.json();
+        // const data = await response.json();
+        const raw = await response.text();
+
+        console.log(raw);
+
+        const data = JSON.parse(raw);
         exercices = data.reverse();
         const exercicesList = document.getElementById('exercicesList');
 
@@ -80,7 +85,6 @@ function renderPagination(exercicesToRender, pageNum){
 }
 
 //EventListeners:
-// on page load or on button click ? TODO
 document.addEventListener('DOMContentLoaded', () => {
     loadExercices();
 });
@@ -214,17 +218,18 @@ searchButton.addEventListener('click', function () {
 
 document.getElementById('clearSearchButton').addEventListener('click', () => {
     renderExercices(exercices, 1);
+    searchInput.value = "";
 })
 
 function applyFilter() {
     const exercicesList = document.getElementById('exercicesList');
-    const q = searchInput.value.trim().toLowerCase();
+    const inputValue = searchInput.value.trim().toLowerCase();
 
     let filtered = exercices.filter(ex => {
         const title = (ex.title || '').toLowerCase();
         const desc = (ex.description || '').toLowerCase();
         const body = (ex.bodyParts || []).join(' ').toLowerCase();
-        return title.includes(q) || desc.includes(q) || body.includes(q);
+        return title.includes(inputValue) || desc.includes(inputValue) || body.includes(inputValue);
     });
 
     if (activeBodyFilters && activeBodyFilters.length > 0) {
@@ -241,7 +246,6 @@ function applyFilter() {
             </div>`;
     } else {
         renderExercices(filtered, 1);
-        // exercicesList.innerHTML = filtered.map(renderExerciceCard).join("");
     }
 }
 
