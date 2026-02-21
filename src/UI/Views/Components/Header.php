@@ -39,7 +39,7 @@ $firstSegment = explode('/', $route)[0] ?? '';
                 <?php if ($isLoggedIn): ?>
                     <li class="nav-item">
                         <a class="nav-link <?= ($firstSegment === 'exercices') ? 'active' : '' ?>"
-                           href="<?= makeUrl('myexercices') ?>">My Exercices</a>
+                           href="<?= makeUrl('exercices') ?>">My Exercices</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= ($firstSegment === 'my-account' || $firstSegment === 'accounts') ? 'active' : '' ?>"

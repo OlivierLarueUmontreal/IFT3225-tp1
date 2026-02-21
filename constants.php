@@ -12,7 +12,7 @@ $env = $config['app']['env'];
 if ($env == 'dev') {
     define('BASE_URL', '/IFT3225-tp1');
 } else {
-    define('BASE_URL', '/');
+    define('BASE_URL', '/~nguyehun/IFT3225-tp1');
 }
 
 //TODO gerer cela dans le config bd pour le schema

@@ -120,5 +120,6 @@ if (empty($_SESSION['username'])) {
 <script>
     const currentUserId = <?= json_encode($_SESSION['user_id'] ?? null) ?>;
     const isAdmin = <?= json_encode($_SESSION['is_admin'] ?? null) ?>;
+    const baseUrl = `<?= BASE_URL?>`;
 </script>
 <script type="module" src="<?= makeUrl('public/js/exercices.js') ?>"></script>

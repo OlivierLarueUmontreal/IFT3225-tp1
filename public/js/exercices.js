@@ -1,6 +1,3 @@
-// TODO changer ce path lors du deploiement sur le diro
-const baseUrl = '/IFT3225-tp1'
-
 import {renderExerciceCard} from './components/exerciceCard.js'
 
 let exercices = [];

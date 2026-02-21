@@ -1,5 +1,6 @@
 # Olivier Larue: SOURCE: https://github.com/phprouter/main/blob/main/.htaccess
 # Olivier Larue: Modified and adjusted for my needs
+# Change RewriteBase on PROD
 RewriteEngine On
 RewriteBase /IFT3225-tp1/
 RewriteCond %{REQUEST_FILENAME} !-f
