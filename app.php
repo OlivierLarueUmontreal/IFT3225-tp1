@@ -20,10 +20,6 @@ spl_autoload_register(function ($class) {
 //start session and configure cookie setting
 $cookieLifetime = 3600; // session valid for 1 hour
 
-// $host = $_SERVER['HTTP_HOST'] ?? '';
-// Strip port if present (cookies' domain must not include port)
-// $cookieDomain = preg_replace('/:\d+$/', '', $host);
-
 ini_set('session.gc_maxlifetime', (string)$cookieLifetime);
 
 session_start([

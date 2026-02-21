@@ -15,8 +15,6 @@ if ($env == 'dev') {
     define('BASE_URL', '/~nguyehun/IFT3225-tp1');
 }
 
-//TODO gerer cela dans le config bd pour le schema
-
 /**
  * Helper Function to make url easily
  * providing empty string brings to home page.

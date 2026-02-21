@@ -8,17 +8,12 @@ async function loadExercices() {
     const url = `${baseUrl}/api/exercices`
     try {
         const response = await fetch(url);
-        // const data = await response.json();
         const raw = await response.text();
-
-        console.log(raw);
-
         const data = JSON.parse(raw);
         exercices = data.reverse();
         const exercicesList = document.getElementById('exercicesList');
 
         if (data.length === 0) {
-            // simple, centered empty state
             exercicesList.innerHTML = `
                 <div class="d-flex justify-content-center align-items-center" style="min-height:200px;">
                     <p class="text-muted mb-0">No exercices added yet. Try adding one.</p>

@@ -44,16 +44,6 @@ post('/exercice/update/$id', function(){
     $exerciceController->update();
 });
 
-//
-////TEST purposes only to test callback on router, maybe remove or admin only
-//get('/accounts' , function() {
-//    global $accountController;
-//    $accountController->showAll();
-//});
-//
-
-////Test de creation de compte sur post de /accounts
-
 get('/my-account', function(){
     global $accountController;
     $accountController->showMyAccount();
