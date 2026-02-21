@@ -1,24 +1,24 @@
-<div class="content-wrapper view-login">
-    <?php
+<?php
     // Start session early so we can show flash messages before any output
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
-    }
-    $flashError = null;
-    if (!empty($_SESSION['flash_error'])) {
-        $flashError = $_SESSION['flash_error'];
-        unset($_SESSION['flash_error']);
-    }
+        }
+        $flashError = null;
+        if (!empty($_SESSION['flash_error'])) {
+            $flashError = $_SESSION['flash_error'];
+            unset($_SESSION['flash_error']);
+            }
+            
+            include_once VIEWS_PATH . '/Components/Header.php';
+            ?>
 
-    include_once VIEWS_PATH . '/Components/Header.php';
-    ?>
-
+<div class="content-wrapper view-login">
     <?php if ($flashError): ?>
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-6">
-                <div class="alert alert-danger" role="alert"><?= htmlspecialchars($flashError) ?></div>
-            </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert"><?= htmlspecialchars($flashError) ?></div>
         </div>
+    </div>
     <?php endif; ?>
 
     <div class="row justify-content-center align-items-center mt-5 shadow-lg">
@@ -33,12 +33,12 @@
                         <div class="form-group">
                             <label for="identifier">Email or Username</label>
                             <input type="text" class="form-control dark-input" id="identifier" name="identifier"
-                                   placeholder="Email or username" required>
+                                placeholder="Email or username" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control dark-input" id="password" name="password"
-                                   placeholder="Password" required>
+                                placeholder="Password" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                         <a href="<?= makeUrl('register') ?>" class="btn btn-link">Register</a>

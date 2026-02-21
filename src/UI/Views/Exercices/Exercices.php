@@ -14,76 +14,75 @@ if (empty($_SESSION['username'])) {
             <div class="d-flex align-items-center">
                 <h1 class="navbar-brand mb-0">Exercices</h1>
                 <button type="button" class="btn btn-primary ml-3 btn-square" data-toggle="modal"
-                        data-target="#addExerciceModal" title="Add Exercice">
+                    data-target="#addExerciceModal" title="Add Exercice">
                     <i class="fas fa-plus"></i>
                 </button>
             </div>
             <div class="d-flex">
                 <form id="searchForm" class="d-flex mr-2">
                     <input id="searchInput" class="form-control mr-1" type="search" placeholder="Search"
-                           aria-label="Search">
+                        aria-label="Search">
                     <button id="searchButton" class="btn btn-outline-success" type="button" aria-label="Search"><i
-                                class="fas fa-search"></i></button>
+                            class="fas fa-search"></i></button>
 
                 </form>
 
                 <!-- Body parts filter dropdown -->
                 <div class="dropdown mr-2">
                     <button class="btn btn-outline-info dropdown-toggle" type="button" id="bodyFilterDropdown"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa-solid fa-filter"></i>
                     </button>
-                    <div class="dropdown-menu p-3 exercices-filter-menu" aria-labelledby="bodyFilterDropdown"
-                         style="min-width:220px;">
+                    <div class="dropdown-menu p-3 exercices-filter-menu" style="min-width:220px;">
                         <form id="bodyFilterForm">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Chest" id="filterChest"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterChest">Chest</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Back" id="filterBack"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterBack">Back</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Quadriceps" id="filterQuadriceps"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterQuadriceps">Quadriceps</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Hamstrings" id="filterHamstrings"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterHamstrings">Hamstrings</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Glutes" id="filterGlutes"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterGlutes">Glutes</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Calves" id="filterCalves"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterCalves">Calves</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Shoulders" id="filterShoulders"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterShoulders">Shoulders</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Biceps" id="filterBiceps"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterBiceps">Biceps</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Triceps" id="filterTriceps"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterTriceps">Triceps</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="Abdominal" id="filterAbdominal"
-                                       name="filterBodyParts[]">
+                                    name="filterBodyParts[]">
                                 <label class="form-check-label" for="filterAbdominal">Abdominal</label>
                             </div>
                             <div class="mt-2 text-right">
@@ -97,7 +96,7 @@ if (empty($_SESSION['username'])) {
                 </div>
 
                 <button id="clearSearchButton" type="button" class="btn btn-outline-primary ml-2 btn-square"
-                        aria-label="Clear search">
+                    aria-label="Clear search">
                     Reset
                 </button>
 
@@ -113,13 +112,13 @@ if (empty($_SESSION['username'])) {
         </ul>
     </nav>
 
-    <?php include_once VIEWS_PATH . '/Components/Footer.php'; ?>
 
 </div>
 
 <script>
-    const currentUserId = <?= json_encode($_SESSION['user_id'] ?? null) ?>;
-    const isAdmin = <?= json_encode($_SESSION['is_admin'] ?? null) ?>;
-    const baseUrl = `<?= BASE_URL?>`;
+const currentUserId = <?= json_encode($_SESSION['user_id'] ?? null) ?>;
+const isAdmin = <?= json_encode($_SESSION['is_admin'] ?? null) ?>;
+const baseUrl = `<?= BASE_URL?>`;
 </script>
 <script type="module" src="<?= makeUrl('public/js/exercices.js') ?>"></script>
+<?php include_once VIEWS_PATH . '/Components/Footer.php'; ?>

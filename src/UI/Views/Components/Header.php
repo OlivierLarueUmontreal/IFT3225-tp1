@@ -52,7 +52,7 @@ $firstSegment = explode('/', $route)[0] ?? '';
                             <?= $_SESSION['username'] ?>
                         </a>
                         <!-- profile Dropdown menu -->
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="<?= makeUrl('my-account') ?>">Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="<?= makeUrl('logout') ?>">Logout</a>
