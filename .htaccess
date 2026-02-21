@@ -1,8 +1,8 @@
 # Olivier Larue: SOURCE: https://github.com/phprouter/main/blob/main/.htaccess
 # Olivier Larue: Modified and adjusted for my needs
-# Change RewriteBase on PROD
+# Change RewriteBase on DEV to /IFT3225-tp1/
 RewriteEngine On
-RewriteBase /IFT3225-tp1/
+RewriteBase /~nguyehun/IFT3225-tp1/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI}  !(\.png|\.jpg|\.webp|\.gif|\.jpeg|\.zip|\.css|\.svg|\.js|\.pdf)$
 RewriteRule ^(.*)$ app.php [QSA,L]
