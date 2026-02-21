@@ -1,7 +1,7 @@
 -- Initialize database and accounts table for TP1
 -- Run with: mysql -u root -p < scripts/init_mysql_tp1.sql
 
-CREATE DATABASE IF NOT EXISTS `nguye_hun_tp1` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS `tp1` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `tp1`;
 
 CREATE TABLE IF NOT EXISTS `accounts` (
