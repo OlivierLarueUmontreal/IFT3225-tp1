@@ -32,3 +32,4 @@ voir les liens pour sur lesquels je me suis inspiré:
  - [CLEAN arch en php](https://medium.com/unil-ci-software-engineering/clean-architecture-with-php-22de915a6c50)
  - [DI en PHP](https://medium.com/@khaledzeitar/building-a-simple-dependency-injection-container-in-php-db3a397283ae)
  - [Router dans PHP](https://phprouter.com/)
+ - [CSS shenanigins](https://www.w3schools.com/css/default.asp)
