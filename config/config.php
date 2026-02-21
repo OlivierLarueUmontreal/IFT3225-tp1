@@ -2,7 +2,7 @@
 
 return [
     'app' => [
-        'env' => 'dev', // dev, prod
+        'env' => 'prod', // dev, prod
     ],
     
     'paths' => [
