@@ -52,8 +52,11 @@ class AccountController
 
         $account = $this->accountService->createAccount($username, $email, $password);
 
-        if (!isset($account))
-            throw new Exception("Could not create account");
+        if (!isset($account)){
+            $_SESSION['flash_error'] = 'Username/email already exists.';
+            header('Location: ' . makeUrl('register'));
+            exit();
+        }
 
         // Regenerate session id to mitigate fixation
         session_regenerate_id(true);

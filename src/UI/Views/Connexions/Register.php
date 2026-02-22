@@ -1,5 +1,24 @@
-<?php include_once VIEWS_PATH . '/Components/Header.php'; ?>
+<?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+        }
+        $flashError = null;
+        if (!empty($_SESSION['flash_error'])) {
+            $flashError = $_SESSION['flash_error'];
+            unset($_SESSION['flash_error']);
+            }
+            
+    include_once VIEWS_PATH . '/Components/Header.php';
+?>
+    <?php if ($flashError): ?>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert"><?= htmlspecialchars($flashError) ?></div>
+        </div>
+    </div>
+    <?php endif; ?>
     <div class="row justify-content-center align-items-center shadow-lg" style="min-height: 80vh;">
+
         <div class="col-md-6 col-lg-5">
             <div class="card auth-card">
                 <div class="card-body p-5">

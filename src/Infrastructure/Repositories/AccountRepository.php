@@ -116,7 +116,6 @@ class AccountRepository implements IAccountRepository
     public function create(Account $account): ?Account
     {
         if(!(($this->retrieveByUsername($account->getUserName()) === null) && ($this->retrieveByEmail($account->getEmail()) === null))){
-            echo "Account creation unsucessful. Username/email already exists\n";
             return null;
         }
 
